@@ -36,12 +36,24 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		GetInput ();
+		if(GameManager.Instance.viewState == ViewState.Profile)
+		{
+			GetInput ();			
+		}
 	}
 
 	void FixedUpdate () 
 	{
-		Gravity ();
+		if(GameManager.Instance.viewState == ViewState.Profile)
+		{
+			Gravity ();
+			//Movement ();
+		}
+	}
+
+	void Movement ()
+	{
+		rigidBody.MovePosition (transform.position + new Vector3(movementSpeed * Time.fixedDeltaTime, 0, 0));
 	}
 
 	void GetInput ()
@@ -71,29 +83,20 @@ public class PlayerMovement : MonoBehaviour
 
 	void Jump ()
 	{
-		rigidBody.AddForce (new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+		rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce, rigidBody.velocity.z);
+		//rigidBody.AddForce (new Vector3(0, jumpForce, 0), ForceMode.VelocityChange);
 	}
 
 	void DoubleJump ()
 	{
-		rigidBody.AddForce (new Vector3(0, doubleJumpForce, 0), ForceMode.Impulse);
+		rigidBody.velocity = new Vector3(rigidBody.velocity.x, doubleJumpForce, rigidBody.velocity.z);
+		//rigidBody.AddForce (new Vector3(0, doubleJumpForce, 0), ForceMode.VelocityChange);
 	}
 
 	void OnCollisionEnter (Collision collision)
 	{
-		Debug.Log (collision.collider.gameObject.layer);
-
-		if (collision.gameObject.layer == wallLayer)
-		{
-			Debug.Log (collision.collider);
-			Debug.Log (IsGrounded ());
-		}
-
-		if (collision.gameObject.layer == wallLayer && IsGrounded ())
-		{
-			
+		if ((1<<collision.gameObject.layer) == wallLayer)
 			jumpState = JumpState.Grounded;
-		}
 	}
 
 	public bool IsGrounded ()
@@ -119,16 +122,5 @@ public class PlayerMovement : MonoBehaviour
 
 		else
 			return false;
-	}
-
-	void IsGroundedDebug ()
-	{
-		Vector3 direction = transform.position;
-
-		Debug.DrawRay(new Vector3(direction.x, direction.y, direction.z), new Vector3(0, -distToGround - groundedRayLength, 0), Color.red);
-		Debug.DrawRay(new Vector3(direction.x - 0.3f, direction.y, direction.z), new Vector3(0, -distToGround + 0.1f - groundedRayLength, 0), Color.red);
-		Debug.DrawRay(new Vector3(direction.x + 0.3f, direction.y, direction.z), new Vector3(0, -distToGround + 0.1f - groundedRayLength, 0), Color.red);
-		Debug.DrawRay(new Vector3(direction.x, direction.y, direction.z - 0.3f), new Vector3(0, -distToGround + 0.1f - groundedRayLength, 0), Color.red);
-		Debug.DrawRay(new Vector3(direction.x, direction.y, direction.z + 0.3f), new Vector3(0, -distToGround + 0.1f - groundedRayLength, 0), Color.red);
 	}
 }

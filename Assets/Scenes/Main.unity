@@ -184,7 +184,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d04658549d73bf34a8e61adc1a7b6130, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -244,6 +244,7 @@ GameObject:
   - 92: {fileID: 1037761431}
   - 124: {fileID: 1037761430}
   - 81: {fileID: 1037761429}
+  - 114: {fileID: 1037761434}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -319,6 +320,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1037761434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1037761428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c9bbec940ecf0d4f8d7b4cd99421411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementLerp: 0.1
+  followOnY: 1
+  profilePosition: {x: 0, y: 1, z: -10}
+  profileLookAtPlayer: 1
+  profileLookAtLerp: 0.1
+  profileLookAtOffset: {x: 0, y: 0}
+  topPosition: {x: 0, y: 0, z: 0}
+  topLookAtPlayer: 1
+  topLookAtLerp: 0.1
+  topLookAtOffset: {x: 0, y: 0}
 --- !u!1 &1347618512
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +372,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 64d4fad55975c4548b45c79f87d47c25, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -393,7 +415,7 @@ Transform:
   m_GameObject: {fileID: 1347618512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 28.21, y: 1, z: 23.29}
+  m_LocalScale: {x: 3000, y: 1, z: 23.29}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -413,7 +435,7 @@ GameObject:
   - 114: {fileID: 1395181676}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -431,7 +453,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5ceda79c1b9c683488514baa9729dc98, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -498,7 +520,7 @@ MonoBehaviour:
     m_Bits: 256
   groundedRayLength: 1
   jumpForce: 15
-  doubleJumpForce: 20
+  doubleJumpForce: 15
   gravityForce: 40
 --- !u!54 &1395181677
 Rigidbody:

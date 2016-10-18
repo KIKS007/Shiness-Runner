@@ -3,7 +3,7 @@ using System.Collections;
 
 public enum ViewState {Profile, Top};
 
-public class GameManager :  Singleton<MonoBehaviour> 
+public class GameManager :  Singleton<GameManager> 
 {
 	public ViewState viewState = ViewState.Profile;
 
