@@ -7,36 +7,43 @@ public class CameraFollow : MonoBehaviour
 	public float movementLerp = 0.1f;
 	public bool followOnY = true;
 
-	[Header ("Profile View")]
-	public Vector3 profilePosition;
-	public bool profileLookAtPlayer = true;
-	public float profileLookAtLerp = 0.1f;
-	public Vector2 profileLookAtOffset;
-
 	[Header ("Top View")]
 	public Vector3 topPosition;
 	public bool topLookAtPlayer = true;
 	public float topLookAtLerp = 0.1f;
 	public Vector2 topLookAtOffset;
 
+	[Header ("Profile View")]
+	public Vector3 profilePosition;
+	public bool profileLookAtPlayer = true;
+	public float profileLookAtLerp = 0.1f;
+	public Vector2 profileLookAtOffset;
+
+
 	private GameObject player;
+	private CameraSwitchView cameraSwitchViewScript;
 
 	// Use this for initialization
 	void Start () 
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
+		cameraSwitchViewScript = GetComponent <CameraSwitchView> ();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		
 	}
 		
 	void FixedUpdate ()
 	{
-		LookAtPlayer ();
-
-		FollowPlayerPosition ();
+		if(cameraSwitchViewScript == false)
+		{
+			LookAtPlayer ();
+			
+			FollowPlayerPosition ();			
+		}
 	}
 
 	void FollowPlayerPosition ()

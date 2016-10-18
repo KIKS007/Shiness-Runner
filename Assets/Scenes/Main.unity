@@ -245,6 +245,7 @@ GameObject:
   - 124: {fileID: 1037761430}
   - 81: {fileID: 1037761429}
   - 114: {fileID: 1037761434}
+  - 114: {fileID: 1037761435}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -333,14 +334,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementLerp: 0.1
   followOnY: 1
-  profilePosition: {x: 0, y: 1, z: -10}
-  profileLookAtPlayer: 1
-  profileLookAtLerp: 0.1
-  profileLookAtOffset: {x: 0, y: 0}
   topPosition: {x: 0, y: 0, z: 0}
   topLookAtPlayer: 1
   topLookAtLerp: 0.1
   topLookAtOffset: {x: 0, y: 0}
+  profilePosition: {x: 0, y: 1, z: -10}
+  profileLookAtPlayer: 1
+  profileLookAtLerp: 0.1
+  profileLookAtOffset: {x: 0, y: 0}
+--- !u!114 &1037761435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1037761428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63626da0260303438bf950f62fae908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMovingAlongPath: 0
+  toTopPath: []
+  toTopDuration: 2
+  toTopPathMode: 0
+  topTopPathResolution: 5
+  toProfilePath: []
+  topProfileDuration: 2
+  toProfilePathMode: 0
+  topProfilePathResolution: 5
+  toTop: 0
+  toProfile: 0
 --- !u!1 &1347618512
 GameObject:
   m_ObjectHideFlags: 0
