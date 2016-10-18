@@ -44,11 +44,8 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate () 
 	{
-		if(GameManager.Instance.viewState == ViewState.Profile)
-		{
-			Gravity ();
-			//Movement ();
-		}
+		Gravity ();
+		Movement ();
 	}
 
 	void Movement ()

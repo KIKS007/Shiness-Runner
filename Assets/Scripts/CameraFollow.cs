@@ -19,6 +19,9 @@ public class CameraFollow : MonoBehaviour
 	public float profileLookAtLerp = 0.1f;
 	public Vector2 profileLookAtOffset;
 
+	[Header ("Along Path")]
+	public bool pathLookAtPlayer = true;
+	public float pathLookAtPlayerLerp = 0.1f;
 
 	private GameObject player;
 	private CameraSwitchView cameraSwitchViewScript;
@@ -33,17 +36,20 @@ public class CameraFollow : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
 	}
 		
 	void FixedUpdate ()
 	{
-		if(cameraSwitchViewScript == false)
+		if(cameraSwitchViewScript.isMovingAlongPath == false)
 		{
-			LookAtPlayer ();
-			
 			FollowPlayerPosition ();			
 		}
+
+	}
+
+	void LateUpdate ()
+	{
+		LookAtPlayer ();
 	}
 
 	void FollowPlayerPosition ()
@@ -68,7 +74,6 @@ public class CameraFollow : MonoBehaviour
 				target = new Vector3(player.transform.position.x + topPosition.x, 0, player.transform.position.z + topPosition.z);
 		}
 
-
 		transform.position = Vector3.Lerp (transform.position, target, movementLerp);
 	}
 
@@ -77,21 +82,41 @@ public class CameraFollow : MonoBehaviour
 		if(GameManager.Instance.viewState == ViewState.Profile && profileLookAtPlayer)
 		{
 			Vector3 targetPos = new Vector3 (player.transform.position.x + profileLookAtOffset.x, player.transform.position.y + profileLookAtOffset.y, player.transform.position.z);
-			targetPos -= transform.position;
 
-			Quaternion rotation = Quaternion.LookRotation (targetPos, Vector3.up);
+			Quaternion rotation = Quaternion.LookRotation (targetPos - transform.position);
 
-			transform.rotation = Quaternion.Lerp (transform.rotation, rotation, profileLookAtLerp);
+			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, profileLookAtLerp * Time.deltaTime);
+
+			/*Vector3 targetPos = new Vector3 (player.transform.position.x + profileLookAtOffset.x, player.transform.position.y + profileLookAtOffset.y, player.transform.position.z);
+			transform.LookAt (targetPos);*/
 		}
 
 		else if(topLookAtPlayer)
 		{
 			Vector3 targetPos = new Vector3 (player.transform.position.x + topLookAtOffset.x, player.transform.position.y + topLookAtOffset.y, player.transform.position.z);
-			targetPos -= transform.position;
 
-			Quaternion rotation = Quaternion.LookRotation (targetPos, Vector3.up);
+			Quaternion rotation = Quaternion.LookRotation (targetPos - transform.position);
 
-			transform.rotation = Quaternion.Lerp (transform.rotation, rotation, topLookAtLerp);
+			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, topLookAtLerp * Time.deltaTime);
+
+			/*Vector3 targetPos = new Vector3 (player.transform.position.x + topLookAtOffset.x, player.transform.position.y + topLookAtOffset.y, player.transform.position.z);
+			transform.LookAt (targetPos);*/
 		}
+	}
+
+	void LookAtDuringPath ()
+	{
+		/*Vector3 targetPos = new Vector3 (player.transform.position.x, player.transform.position.y, player.transform.position.z);
+		targetPos -= transform.position;
+
+		Quaternion rotation = Quaternion.LookRotation (targetPos, Vector3.up);
+
+		if(Quaternion.Angle (transform.rotation, rotation) > rotationAngleLimit)
+			transform.rotation = Quaternion.Lerp (transform.rotation, rotation, pathLookAtPlayerLerp);*/
+
+		Vector3 targetPos = new Vector3 (player.transform.position.x + topLookAtOffset.x, player.transform.position.y + topLookAtOffset.y, player.transform.position.z);
+		Vector3 direction = targetPos - transform.position;
+		Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction);
+		transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, topLookAtLerp * Time.fixedDeltaTime);
 	}
 }
