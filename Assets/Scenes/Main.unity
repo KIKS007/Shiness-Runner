@@ -243,9 +243,10 @@ GameObject:
   - 33: {fileID: 242232313}
   - 135: {fileID: 242232312}
   - 23: {fileID: 242232311}
+  - 114: {fileID: 242232315}
   m_Layer: 0
-  m_Name: Fairy
-  m_TagString: Untagged
+  m_Name: Poui
+  m_TagString: Poui
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -311,6 +312,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &242232315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242232310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317bd0f955d99b8428b55b594ab8d29c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topYOffset: 0
+  profileZOffset: -2
 --- !u!1 &334711017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,7 +1016,7 @@ Transform:
   - {fileID: 436411426}
   - {fileID: 1856284094}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &864051569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,13 +1356,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementLerp: 0.05
   followOnY: 1
-  topPosition: {x: 6.2, y: 15, z: -6.91}
+  topPosition: {x: 5.6, y: 15, z: -6.91}
   topLookAtPlayer: 1
-  topLookAtLerp: 5
+  topLookAtLerp: 10
   topLookAtOffset: {x: 5, y: 0}
   profilePosition: {x: 0, y: 1, z: -10}
   profileLookAtPlayer: 1
-  profileLookAtLerp: 5
+  profileLookAtLerp: 10
   profileLookAtOffset: {x: 0, y: 0}
   pathLookAtPlayer: 0
   pathLookAtPlayerLerp: 0.5
@@ -2125,7 +2139,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 1
 --- !u!1 &1418361651
 GameObject:
@@ -2233,7 +2247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a55a7e7afbc1754fa230e4f2c620262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewState: 1
+  viewState: 0
 --- !u!4 &1517878519
 Transform:
   m_ObjectHideFlags: 0
@@ -2246,7 +2260,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &1744942104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2977,9 +2991,9 @@ MonoBehaviour:
       _userAssignable: 1
       _categoryId: 0
     - _id: 4
-      _name: Fairy
+      _name: Poui
       _type: 1
-      _descriptiveName: Action0
+      _descriptiveName: Poui
       _positiveDescriptiveName: 
       _negativeDescriptiveName: 
       _behaviorId: 0
