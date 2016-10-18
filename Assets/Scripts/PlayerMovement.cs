@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(GameManager.Instance.viewState == ViewState.Profile)
+		if(GameManager.Instance.viewState == ViewState.Side)
 		{
 			GetInput ();			
 		}

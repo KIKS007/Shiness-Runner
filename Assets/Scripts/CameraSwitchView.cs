@@ -8,21 +8,21 @@ public class CameraSwitchView : MonoBehaviour
 	public bool isMovingAlongPath = false;
 	public float playerMovementXOffset = 1;
 
-	[Header ("Profile To Top Path")]
+	[Header ("Side To Top Path")]
 	public Vector3[] toTopPath = new Vector3[0];
 	public Vector3[] toTopPathTemp = new Vector3[0];
 	public float toTopDuration;
 	public int topTopPathResolution;
 
-	[Header ("Top To Profile Path")]
-	public Vector3[] toProfilePath = new Vector3[0];
-	public Vector3[] toProfilePathTemp = new Vector3[0];
-	public float toProfileDuration;
-	public int topProfilePathResolution;
+	[Header ("Top To Side Path")]
+	public Vector3[] toSidePath = new Vector3[0];
+	public Vector3[] toSidePathTemp = new Vector3[0];
+	public float toSideDuration;
+	public int topSidePathResolution;
 
 	[Header ("Debug Test")]
 	public bool toTop = false;
-	public bool toProfile = false;
+	public bool toSide = false;
 
 	private GameObject player;
 	private CameraFollow cameraFollowScript;
@@ -38,7 +38,7 @@ public class CameraSwitchView : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag ("Player");
 		cameraFollowScript = GetComponent <CameraFollow> ();
 		toTopPathTemp = new Vector3[toTopPath.Length];
-		toProfilePathTemp = new Vector3[toProfilePath.Length];
+		toSidePathTemp = new Vector3[toSidePath.Length];
 	}
 	
 	// Update is called once per frame
@@ -54,10 +54,10 @@ public class CameraSwitchView : MonoBehaviour
 				ToTop ();
 			}
 			
-			if(toProfile)
+			if(toSide)
 			{
-				toProfile = false;
-				TopProfile ();
+				toSide = false;
+				TopSide ();
 			}
 
 			float playerMovementXOffset = player.GetComponent <PlayerMovement> ().movementSpeed * Time.deltaTime;
@@ -65,8 +65,8 @@ public class CameraSwitchView : MonoBehaviour
 			for (int i = 0; i < toTopPath.Length; i++)
 				toTopPathTemp [i] = new Vector3 (toTopPath[i].x + player.transform.position.x + playerMovementXOffset, toTopPath[i].y, toTopPath[i].z);
 
-			for (int i = 0; i < toProfilePath.Length; i++)
-				toProfilePathTemp [i] = new Vector3 (toProfilePath[i].x + player.transform.position.x, toProfilePath[i].y, toProfilePath[i].z);
+			for (int i = 0; i < toSidePath.Length; i++)
+				toSidePathTemp [i] = new Vector3 (toSidePath[i].x + player.transform.position.x, toSidePath[i].y, toSidePath[i].z);
 		}
 	}
 
@@ -75,14 +75,14 @@ public class CameraSwitchView : MonoBehaviour
 		if (toTopPath [toTopPath.Length - 1] != cameraFollowScript.topPosition)
 			toTopPath [toTopPath.Length - 1] = cameraFollowScript.topPosition;
 
-		if (toProfilePath [toProfilePath.Length - 1] != cameraFollowScript.profilePosition)
-			toProfilePath [toProfilePath.Length - 1] = cameraFollowScript.profilePosition;
+		if (toSidePath [toSidePath.Length - 1] != cameraFollowScript.sidePosition)
+			toSidePath [toSidePath.Length - 1] = cameraFollowScript.sidePosition;
 
-		if (toTopPath [0] != cameraFollowScript.profilePosition)
-			toTopPath [0] = cameraFollowScript.profilePosition;
+		if (toTopPath [0] != cameraFollowScript.sidePosition)
+			toTopPath [0] = cameraFollowScript.sidePosition;
 
-		if (toProfilePath [0] != cameraFollowScript.topPosition)
-			toProfilePath [0] = cameraFollowScript.topPosition;
+		if (toSidePath [0] != cameraFollowScript.topPosition)
+			toSidePath [0] = cameraFollowScript.topPosition;
 	}
 
 	public void ToTop ()
@@ -93,11 +93,11 @@ public class CameraSwitchView : MonoBehaviour
 		transform.DOPath (toTopPathTemp, toTopDuration, PathType.CatmullRom, PathMode.Ignore, topTopPathResolution, Color.red).OnComplete (()=> isMovingAlongPath = false);
 	}
 
-	public void TopProfile ()
+	public void TopSide ()
 	{
 		isMovingAlongPath = true;
-		GameManager.Instance.viewState = ViewState.Profile;
+		GameManager.Instance.viewState = ViewState.Side;
 
-		transform.DOPath (toProfilePathTemp, toProfileDuration, PathType.CatmullRom, PathMode.Ignore, topProfilePathResolution, Color.green).OnComplete (()=> isMovingAlongPath = false);
+		transform.DOPath (toSidePathTemp, toSideDuration, PathType.CatmullRom, PathMode.Ignore, topSidePathResolution, Color.green).OnComplete (()=> isMovingAlongPath = false);
 	}
 }

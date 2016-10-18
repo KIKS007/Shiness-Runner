@@ -13,11 +13,11 @@ public class CameraFollow : MonoBehaviour
 	public float topLookAtLerp = 0.1f;
 	public Vector2 topLookAtOffset;
 
-	[Header ("Profile View")]
-	public Vector3 profilePosition;
-	public bool profileLookAtPlayer = true;
-	public float profileLookAtLerp = 0.1f;
-	public Vector2 profileLookAtOffset;
+	[Header ("Side View")]
+	public Vector3 sidePosition;
+	public bool sideLookAtPlayer = true;
+	public float sideLookAtLerp = 0.1f;
+	public Vector2 sideLookAtOffset;
 
 	[Header ("Along Path")]
 	public bool pathLookAtPlayer = true;
@@ -56,13 +56,13 @@ public class CameraFollow : MonoBehaviour
 	{
 		Vector3 target = new Vector3 ();
 
-		if(GameManager.Instance.viewState == ViewState.Profile)
+		if(GameManager.Instance.viewState == ViewState.Side)
 		{
 			if (followOnY)
-				target = player.transform.position + profilePosition; 
+				target = player.transform.position + sidePosition; 
 
 			else
-				target = new Vector3(player.transform.position.x + profilePosition.x, 0, player.transform.position.z + profilePosition.z);			
+				target = new Vector3(player.transform.position.x + sidePosition.x, 0, player.transform.position.z + sidePosition.z);			
 		}
 
 		else
@@ -79,15 +79,15 @@ public class CameraFollow : MonoBehaviour
 
 	void LookAtPlayer ()
 	{
-		if(GameManager.Instance.viewState == ViewState.Profile && profileLookAtPlayer)
+		if(GameManager.Instance.viewState == ViewState.Side && sideLookAtPlayer)
 		{
-			Vector3 targetPos = new Vector3 (player.transform.position.x + profileLookAtOffset.x, player.transform.position.y + profileLookAtOffset.y, player.transform.position.z);
+			Vector3 targetPos = new Vector3 (player.transform.position.x + sideLookAtOffset.x, player.transform.position.y + sideLookAtOffset.y, player.transform.position.z);
 
 			Quaternion rotation = Quaternion.LookRotation (targetPos - transform.position);
 
-			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, profileLookAtLerp * Time.deltaTime);
+			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, sideLookAtLerp * Time.deltaTime);
 
-			/*Vector3 targetPos = new Vector3 (player.transform.position.x + profileLookAtOffset.x, player.transform.position.y + profileLookAtOffset.y, player.transform.position.z);
+			/*Vector3 targetPos = new Vector3 (player.transform.position.x + sideLookAtOffset.x, player.transform.position.y + sideLookAtOffset.y, player.transform.position.z);
 			transform.LookAt (targetPos);*/
 		}
 
