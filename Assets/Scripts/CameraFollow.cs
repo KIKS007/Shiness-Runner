@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour 
 {
-	[Header ("Follow Settings")]
+	[Header ("Side Scrolling Settings")]
 	public float movementLerp = 0.1f;
 	public bool followOnY = true;
 
@@ -25,12 +25,14 @@ public class CameraFollow : MonoBehaviour
 
 	private GameObject player;
 	private CameraSwitchView cameraSwitchViewScript;
+	private Transform sideScrollingParent;
 
 	// Use this for initialization
 	void Start () 
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
 		cameraSwitchViewScript = GetComponent <CameraSwitchView> ();
+		sideScrollingParent = transform.parent;
 	}
 	
 	// Update is called once per frame
@@ -40,11 +42,7 @@ public class CameraFollow : MonoBehaviour
 		
 	void FixedUpdate ()
 	{
-		if(cameraSwitchViewScript.isMovingAlongPath == false)
-		{
-			FollowPlayerPosition ();			
-		}
-
+		SideScrolling ();
 	}
 
 	void LateUpdate ()
@@ -52,29 +50,16 @@ public class CameraFollow : MonoBehaviour
 		LookAtPlayer ();
 	}
 
-	void FollowPlayerPosition ()
+	void SideScrolling ()
 	{
 		Vector3 target = new Vector3 ();
 
-		if(GameManager.Instance.viewState == ViewState.Side)
-		{
-			if (followOnY)
-				target = player.transform.position + sidePosition; 
-
-			else
-				target = new Vector3(player.transform.position.x + sidePosition.x, 0, player.transform.position.z + sidePosition.z);			
-		}
-
+		if(followOnY)
+			target = new Vector3 (player.transform.position.x + sidePosition.x, player.transform.position.y, sideScrollingParent.position.z);
 		else
-		{
-			if (followOnY)
-				target = player.transform.position + topPosition; 
+			target = new Vector3 (player.transform.position.x + sidePosition.x, sideScrollingParent.position.y, sideScrollingParent.position.z);
 
-			else
-				target = new Vector3(player.transform.position.x + topPosition.x, 0, player.transform.position.z + topPosition.z);
-		}
-
-		transform.position = Vector3.Lerp (transform.position, target, movementLerp);
+		sideScrollingParent.position = Vector3.Lerp (sideScrollingParent.position, target, movementLerp);
 	}
 
 	void LookAtPlayer ()
