@@ -2,22 +2,33 @@
 using System.Collections;
 using Rewired;
 using DG.Tweening;
+using System;
 
-public enum JumpState {Grounded, CanDoubleJump, InAir};
+public enum JumpState {Grounded, Jumping, Falling};
 
 public class PlayerMovement : MonoBehaviour 
 {
 	public Player controller;
 
-	[Header ("Movement")]
-	public float movementSpeed = 10f;
+	[Header ("Top Movement")]
+	public bool adaptiveSpeed = true;
+	public float topMinMovementSpeed = 3;
+	public float topMovementSpeed = 10f;
 
-	[Header ("Jump")]
+	[Header ("Side Movement")]
+	public float sideMovementSpeed = 10f;
+
+	[Header ("Side Jump")]
 	public JumpState jumpState = JumpState.Grounded;
+	public float jumpDuration;
+	public float maxJumpDuration;
+	public float minJumpForce = 15f;
+	public float jumpForce = 15f;
+	//public float doubleJumpForce = 20f;
+
+	[Header ("Grounded")]
 	public LayerMask wallLayer;
 	public float groundedRayLength = 0.2f;
-	public float jumpForce = 15f;
-	public float doubleJumpForce = 20f;
 	public float gravityForce = 40f;
 
 
@@ -25,52 +36,39 @@ public class PlayerMovement : MonoBehaviour
 
 	private float distToGround;
 
+	private GameObject mainCamera;
+
+	private Transform poui;
+
 	// Use this for initialization
 	void Start () 
 	{
 		controller = ReInput.players.GetPlayer (0);
 		rigidBody = GetComponent <Rigidbody> ();
 		distToGround = GetComponent <Collider> ().bounds.extents.y;
+		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
+		poui = GameObject.FindGameObjectWithTag ("Poui").transform;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		GetCommonInput ();
+
 		if(GameManager.Instance.viewState == ViewState.Side)
-		{
-			GetInput ();			
-		}
+			GetSideInput ();			
+
 	}
 
 	void FixedUpdate () 
 	{
 		Gravity ();
-		Movement ();
-	}
+	
+		if(GameManager.Instance.viewState == ViewState.Top)
+			TopMovement ();
 
-	void Movement ()
-	{
-		rigidBody.MovePosition (transform.position + new Vector3(movementSpeed * Time.fixedDeltaTime, 0, 0));
-	}
-
-	void GetInput ()
-	{
-		if(controller.GetButtonDown ("Jump"))
-		{
-			switch(jumpState)
-			{
-			case JumpState.Grounded:
-				jumpState = JumpState.CanDoubleJump;
-				Jump ();
-				break;
-			case JumpState.CanDoubleJump:
-				jumpState = JumpState.InAir;
-				DoubleJump ();
-				break;
-			case JumpState.InAir:
-				break;
-			}
-		}
+		else
+			SideMovement ();
 	}
 
 	void Gravity ()
@@ -78,16 +76,70 @@ public class PlayerMovement : MonoBehaviour
 		rigidBody.AddForce (new Vector3(0, -gravityForce, 0), ForceMode.Force);
 	}
 
-	void Jump ()
+	void TopMovement ()
 	{
-		rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce, rigidBody.velocity.z);
-		//rigidBody.AddForce (new Vector3(0, jumpForce, 0), ForceMode.VelocityChange);
+		rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+
+		Vector3 target = poui.position - transform.position;
+		target.y = transform.position.y;
+		target.Normalize ();
+
+		if (!adaptiveSpeed)
+			target *= topMovementSpeed;
+		
+		else
+			target *= topMovementSpeed + Vector3.Distance (transform.position, poui.position);
+
+
+		rigidBody.MovePosition (transform.position + target * Time.fixedDeltaTime);
 	}
 
-	void DoubleJump ()
+	void SideMovement ()
 	{
-		rigidBody.velocity = new Vector3(rigidBody.velocity.x, doubleJumpForce, rigidBody.velocity.z);
-		//rigidBody.AddForce (new Vector3(0, doubleJumpForce, 0), ForceMode.VelocityChange);
+		if (transform.position.z != 0)
+			transform.position = Vector3.Lerp (transform.position, new Vector3 (transform.position.x, transform.position.y, 0), 0.1f);
+
+		rigidBody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+		
+		rigidBody.MovePosition (transform.position + new Vector3(sideMovementSpeed * Time.fixedDeltaTime, 0, 0));
+	}
+
+	void GetCommonInput ()
+	{
+		if(controller.GetButtonDown ("SwitchView"))
+		{
+			if (GameManager.Instance.viewState == ViewState.Top)
+				mainCamera.GetComponent <CameraSwitchView> ().TopSide ();
+
+			else
+				mainCamera.GetComponent <CameraSwitchView> ().ToTop ();
+		}
+	}
+
+	void GetSideInput ()
+	{
+		if (controller.GetButtonDown ("Jump") && jumpState == JumpState.Grounded)
+		{
+			jumpDuration = 0;
+			jumpState = JumpState.Jumping;
+			StartCoroutine (SideJump ());
+		}
+
+
+	}
+
+	IEnumerator SideJump ()
+	{
+		rigidBody.velocity = new Vector3(rigidBody.velocity.x, minJumpForce, rigidBody.velocity.z);
+
+		while(controller.GetButton ("Jump") && jumpDuration < maxJumpDuration)
+		{
+			jumpDuration = controller.GetButtonTimePressed ("Jump");
+			rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce, rigidBody.velocity.z);
+			yield return null;
+		}
+
+		jumpState = JumpState.Falling;
 	}
 
 	void OnCollisionEnter (Collision collision)
