@@ -1096,15 +1096,16 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 622774392}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b444d861227c9f478b7605c50bd6e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1000011922950966, guid: 2d58c7675ff842743ac64dec40ad40f9, type: 2}
   projectileRelativePosition: {x: 10, y: 5, z: -2}
-  projectileCount: 5
+  projectileCount: 0
   spawnRate: 1
+  randomPosition: 0
 --- !u!1 &645441047
 GameObject:
   m_ObjectHideFlags: 0
