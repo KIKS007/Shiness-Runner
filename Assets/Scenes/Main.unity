@@ -1041,13 +1041,13 @@ MonoBehaviour:
   floorLayer:
     serializedVersion: 2
     m_Bits: 512
-  topLerp: 0.2
+  topLerp: 0.9
   topYOffset: 5
   topUpLimit: 0.95
   topDownLimit: 0.95
   topRightLimit: 0.95
   topleftLimit: 0.95
-  sideLerp: 0.2
+  sideLerp: 0.9
   sideZOffset: -2
   sideXLimit: 0.99
   sideYLimit: 0.99
@@ -4687,13 +4687,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9bbec940ecf0d4f8d7b4cd99421411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followZ: 1
+  topViewScrollSpeed: 5
+  sideViewScrollSpeed: 5
   movementZLerp: 0.1
   movementYLerp: 0.1
+  hitEase: 1
   topPosition: {x: 5, y: 15, z: -6.9}
   topLookAtSmooth: 3
   topLookAtYOffset: 0
   sidePosition: {x: 0, y: 1, z: -10}
+  topScrollHitDistance: 1
+  topScrollHitDuration: 0.2
+  topScrollHitDelay: 2
+  topDurationToNormal: 2
+  sideScrollHitDistance: 1
+  sideScrollHitDuration: 0.2
+  sideScrollHitDelay: 2
+  sideDurationToNormal: 2
+  hittest: 0
 --- !u!114 &1037761435
 MonoBehaviour:
   m_ObjectHideFlags: 0

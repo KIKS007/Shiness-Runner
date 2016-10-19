@@ -30,10 +30,13 @@ public class PouiMovement : MonoBehaviour
 
 	private float raycastDistance;
 
+	private CameraSwitchView cameraSwitchViewScript;
+
 	// Use this for initialization
 	void Start () 
 	{
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <Camera> ();
+		cameraSwitchViewScript = mainCamera.GetComponent<CameraSwitchView> ();
 		rigidBody = GetComponent<Rigidbody> ();
 		raycastDistance = GetComponent <Collider> ().bounds.extents.y + 0.05f;
 	}
@@ -45,6 +48,13 @@ public class PouiMovement : MonoBehaviour
 		{
 			MovementTop ();
 		}
+		else if(cameraSwitchViewScript.isMovingAlongPath)
+		{
+			Vector3 target = Vector3.Lerp (transform.position, new Vector3(transform.position.x, transform.position.y, 0), topLerp);
+			rigidBody.MovePosition (target);
+		}
+
+
 		else
 		{
 			MovementSide ();
