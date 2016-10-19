@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Rewired;
+using DG.Tweening;
 
 public class PouiMovement : MonoBehaviour 
 {
 	public LayerMask wallMask;
+	public float transitionLerp = 0.5f;
+	public float tweenDuration = 0.5f;
 
 	[Header ("Top View")]
 	public LayerMask floorLayer;
@@ -18,11 +21,6 @@ public class PouiMovement : MonoBehaviour
 	[Header ("Side View")]
 	public float sideLerp = 1;
 	public float sideZOffset;
-	[Range (0, 1)]
-	public float sideXLimit = 0.95f;
-	[Range (0, 1)]
-	public float sideYLimit = 0.95f;
-
 
 	private Camera mainCamera;
 
@@ -32,6 +30,8 @@ public class PouiMovement : MonoBehaviour
 
 	private CameraSwitchView cameraSwitchViewScript;
 
+	public bool inTransition = false;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -39,26 +39,61 @@ public class PouiMovement : MonoBehaviour
 		cameraSwitchViewScript = mainCamera.GetComponent<CameraSwitchView> ();
 		rigidBody = GetComponent<Rigidbody> ();
 		raycastDistance = GetComponent <Collider> ().bounds.extents.y + 0.05f;
+
+		GameManager.Instance.OnTopView += ()=> Cursor.lockState = CursorLockMode.Locked;
+		GameManager.Instance.OnSideView += ()=> Cursor.lockState = CursorLockMode.Confined;
+		GameManager.Instance.OnTopView += ()=> StartCoroutine (PouiToTopPosition ());
+
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
-		if(GameManager.Instance.viewState == ViewState.Top)
+		if(inTransition == false && GameManager.Instance.gameState == GameState.Playing)
 		{
-			MovementTop ();
+			if(GameManager.Instance.viewState == ViewState.Top)
+			{
+				MovementTop ();
+			}
+			
+			else
+			{
+				MovementSide ();
+			}	
 		}
-		else if(cameraSwitchViewScript.isMovingAlongPath)
-		{
-			Vector3 target = Vector3.Lerp (transform.position, new Vector3(transform.position.x, transform.position.y, 0), topLerp);
-			rigidBody.MovePosition (target);
-		}
+	}
 
+	IEnumerator PouiToTopPosition ()
+	{
+		inTransition = true;
 
-		else
+		Vector3 newPos = new Vector3 ();
+		RaycastHit hit = new RaycastHit();
+		Vector3 rayCastDirection = new Vector3 ();
+
+		while(cameraSwitchViewScript.isMovingAlongPath)
 		{
-			MovementSide ();
+			rayCastDirection = Input.mousePosition;
+			rayCastDirection.z -= mainCamera.transform.position.z;
+			
+			rayCastDirection = mainCamera.ScreenToWorldPoint (rayCastDirection);
+			
+			Physics.Raycast (mainCamera.transform.position, rayCastDirection - mainCamera.transform.position, out hit, Mathf.Infinity, floorLayer, QueryTriggerInteraction.Collide);
+			
+			newPos = hit.point;
+			newPos.z = 0;
+
+			//newPos = TopCheckLimits (mainCamera.WorldToScreenPoint(newPos));
+			newPos = CheckIfCanMove (newPos);
+			newPos.y = topYOffset;
+
+			transform.position = Vector3.Lerp (transform.position, newPos, transitionLerp);
+
+			yield return new WaitForEndOfFrame ();
 		}
+			
+		inTransition = false;
+		Cursor.lockState = CursorLockMode.None;
 	}
 
 	void MovementTop ()
@@ -66,12 +101,10 @@ public class PouiMovement : MonoBehaviour
 		Vector3 rayCastDirection = Input.mousePosition;
 		rayCastDirection.z -= mainCamera.transform.position.z;
 
-
 		rayCastDirection = mainCamera.ScreenToWorldPoint (rayCastDirection);
-
+			
 		RaycastHit hit = new RaycastHit();
-		Physics.Raycast (mainCamera.transform.position, rayCastDirection - mainCamera.transform.position, out hit, Mathf.Infinity, floorLayer, QueryTriggerInteraction.UseGlobal);
-
+		Physics.Raycast (mainCamera.transform.position, rayCastDirection - mainCamera.transform.position, out hit, Mathf.Infinity, floorLayer, QueryTriggerInteraction.Collide);
 
 		Vector3 newPos = hit.point;
 
@@ -80,6 +113,7 @@ public class PouiMovement : MonoBehaviour
 		newPos.y = topYOffset;
 
 		Vector3 target = Vector3.Lerp (transform.position, newPos, topLerp);
+
 		rigidBody.MovePosition (target);
 	}
 
@@ -104,7 +138,6 @@ public class PouiMovement : MonoBehaviour
 	{
 		Vector3 newPos = Input.mousePosition;
 		newPos.z = sideZOffset - mainCamera.transform.position.z;
-		//newPos = SideCheckLimits (newPos);
 
 		newPos = mainCamera.ScreenToWorldPoint (newPos);
 		newPos.z = sideZOffset;
@@ -114,23 +147,6 @@ public class PouiMovement : MonoBehaviour
 		Vector3 target = Vector3.Lerp (transform.position, newPos, sideLerp);
 
 		rigidBody.MovePosition (target);
-	}
-
-	Vector3 SideCheckLimits (Vector3 mousePos)
-	{
-		if (mousePos.x > sideXLimit * mainCamera.pixelWidth)
-			mousePos.x = sideXLimit * mainCamera.pixelWidth;
-
-		if(mousePos.x < (1 - sideXLimit) * mainCamera.pixelWidth)
-			mousePos.x = (1 - sideXLimit) * mainCamera.pixelWidth;
-
-		if (mousePos.y > sideYLimit * mainCamera.pixelHeight)
-			mousePos.y = sideYLimit * mainCamera.pixelHeight;
-
-		if(mousePos.y < (1 - sideYLimit) * mainCamera.pixelHeight)
-			mousePos.y = (1 - sideYLimit) * mainCamera.pixelHeight;
-
-		return mousePos;
 	}
 
 	Vector3 CheckIfCanMove (Vector3 newPos)

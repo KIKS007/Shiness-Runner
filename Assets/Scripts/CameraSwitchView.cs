@@ -42,21 +42,26 @@ public class CameraSwitchView : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		waypointsParent.position = new Vector3 (transform.position.x, waypointsParent.position.y, waypointsParent.position.z);
-
-		SetPathEndAndBeginPostition ();
-
-		if(toTop)
+		if(GameManager.Instance.gameState == GameState.Playing)
 		{
-			toTop = false;
-			ToTop ();
+			waypointsParent.position = new Vector3 (transform.position.x, waypointsParent.position.y, waypointsParent.position.z);
+			
+			SetPathEndAndBeginPostition ();
+			
+			if(toTop)
+			{
+				toTop = false;
+				ToTop ();
+			}
+			
+			if(toSide)
+			{
+				toSide = false;
+				TopSide ();
+			}		
+			
 		}
-		
-		if(toSide)
-		{
-			toSide = false;
-			TopSide ();
-		}		
+
 	}
 
 	void SetPathEndAndBeginPostition ()

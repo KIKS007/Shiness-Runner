@@ -1,17 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using Rewired;
 
+public enum GameState {Menu, Playing, Paused, GameOver};
 public enum ViewState {Side, Top};
 
 public delegate void EventHandler();
 
 public class GameManager :  Singleton<GameManager> 
 {
+	public event EventHandler OnSideView;
+	public event EventHandler OnTopView;
+
+	public GameState gameState = GameState.Playing;
 	public ViewState viewState = ViewState.Side;
 
-	public event EventHandler OnTopView;
-	public event EventHandler OnSideView;
+	[Header ("Score")]
+	public int score = 0;
 
 	// Use this for initialization
 	void Start () 
@@ -26,10 +32,18 @@ public class GameManager :  Singleton<GameManager>
 	// Update is called once per frame
 	void Update () 
 	{
-		if(viewState == ViewState.Side)
-			Cursor.lockState = CursorLockMode.Confined;
-		else
-			Cursor.lockState = CursorLockMode.None;
+		
+	}
+
+	public void AddToScore (int scoreToAdd = 1)
+	{
+		score += scoreToAdd;
+	}
+
+	public void GameOver ()
+	{
+		gameState = GameState.GameOver;
+		Debug.Log ("Gameover");
 	}
 
 	IEnumerator OnTopViewEvent ()
