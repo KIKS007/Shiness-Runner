@@ -7,8 +7,8 @@ public class CameraFollow : MonoBehaviour
 	[Header ("Side Scrolling Settings")]
 	public Ease hitEase;
 	public float movementLerp = 0.1f;
-	public float lookAtSmooth = 10f;
 	public float followZTweenDuration = 0.1f;
+	public float resetXScrollSpeed = 0.1f;
 
 	[Header ("Top View")]
 	public Vector3 topPosition;
@@ -35,6 +35,12 @@ public class CameraFollow : MonoBehaviour
 	private float sideInitialXpos;
 	private CameraSwitchView cameraSwitchScript;
 
+	private Rigidbody rigiBodyParent;
+
+	private bool reseting = false;
+
+	public float distX;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -43,10 +49,49 @@ public class CameraFollow : MonoBehaviour
 		sideInitialXpos = sidePosition.x;
 		cameraSwitchScript = GetComponent <CameraSwitchView> ();
 
+		rigiBodyParent = sideScrollingParent.GetComponent <Rigidbody> ();
+
 		GameManager.Instance.OnSideView += ResetSideScroll;
 		GameManager.Instance.OnSideView += SideViewScrolling;
+		GameManager.Instance.OnTopView += DebugMovement;
+
+
+		GameManager.Instance.OnTopView += ()=> StartCoroutine (ResetXScroll ());
+		GameManager.Instance.OnSideView += ()=> StartCoroutine (ResetXScroll ());
 	}
-	
+
+	void DebugMovement ()
+	{
+		enabled = false;
+		enabled = true;
+	}
+
+	IEnumerator ResetXScroll ()
+	{
+		reseting = true;
+
+		do 
+		{
+			Vector3 target = new Vector3(player.transform.position.x - sideScrollingParent.position.x, 0, 0);
+			target.Normalize ();
+			/*//sideScrollingParent.position = Vector3.Lerp (sideScrollingParent.position, target, resetXScrollSpeed);
+
+			Debug.Log (Mathf.Abs (sideScrollingParent.position.x - player.transform.position.x));
+
+			rigiBodyParent.DOMoveX (player.transform.position.x, resetXScrollSpeed).SetLoops (-1).SetId ("Reset");*/			 
+
+			rigiBodyParent.MovePosition(sideScrollingParent.position + target * Time.fixedDeltaTime * resetXScrollSpeed);
+			yield return new WaitForFixedUpdate ();	
+		} 
+		while(Mathf.Abs (sideScrollingParent.position.x - player.transform.position.x) > 0.3f);
+
+		DOTween.Kill ("Reset");
+
+		reseting = false;
+
+		Debug.Log ("resting false");
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -81,14 +126,8 @@ public class CameraFollow : MonoBehaviour
 		else
 		{
 			if(DOTween.IsTweening ("SideScroll"))
-			DOTween.Kill ("SideScroll");
+				DOTween.Kill ("SideScroll");
 		}
-	}
-
-	void LateUpdate ()
-	{
-		/*if(GameManager.Instance.gameState == GameState.Playing && !cameraSwitchScript.isMovingAlongPath)
-			LookAt ();*/
 	}
 
 	void SideViewScrolling ()
@@ -96,7 +135,7 @@ public class CameraFollow : MonoBehaviour
 		if(DOTween.IsTweening ("SideScrollZ"))
 			DOTween.Kill ("SideScrollZ");
 		
-		sideScrollingParent.DOLocalMoveZ (0, 0.5f).SetId ("SideScrollZ");
+		sideScrollingParent.DOLocalMoveZ (0, 1f).SetId ("SideScrollZ");
 	}
 
 	void SideScrolling ()
@@ -106,34 +145,14 @@ public class CameraFollow : MonoBehaviour
 			if (GameManager.Instance.viewState == ViewState.Top)
 				sideScrollingParent.DOLocalMoveZ (player.transform.position.z, followZTweenDuration).SetLoops (-1).SetId ("SideScrollZ");
 
-		}
+		}		
 
-
-		if (GameManager.Instance.viewState == ViewState.Top)
-			sideScrollingParent.DOLocalMoveX (topViewScrollSpeed, 0.1f).SetLoops (-1).SetRelative (true).SetId ("SideScroll").OnComplete (()=> DOTween.Kill ("SideScroll"));
-		else
-			sideScrollingParent.DOLocalMoveX (sideViewScrollSpeed, 0.1f).SetLoops (-1).SetRelative (true).SetId ("SideScroll").OnComplete (()=> DOTween.Kill ("SideScroll"));
-
-	}
-
-	void LookAt ()
-	{
-		if(GameManager.Instance.viewState == ViewState.Top)
+		if(!reseting)
 		{
-			Vector3 targetPos = new Vector3 (transform.position.x, topLookAtYOffset, player.transform.position.z);
-
-			Quaternion rotation = Quaternion.LookRotation (targetPos - transform.position);
-
-			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, lookAtSmooth * Time.deltaTime);
-		}
-		else
-		{
-			Vector3 targetPos = new Vector3 (transform.position.x, transform.position.y + sideLookAtYOffset, transform.position.z);
-			targetPos.z += 1;
-
-			Quaternion rotation = Quaternion.LookRotation (targetPos - transform.position);
-
-			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, lookAtSmooth * Time.deltaTime);
+			if (GameManager.Instance.viewState == ViewState.Top)
+				rigiBodyParent.MovePosition (sideScrollingParent.transform.position + new Vector3(topViewScrollSpeed * Time.fixedDeltaTime, 0, 0));
+			else
+				rigiBodyParent.MovePosition (sideScrollingParent.transform.position + new Vector3(sideViewScrollSpeed * Time.fixedDeltaTime, 0, 0));	
 		}
 	}
 

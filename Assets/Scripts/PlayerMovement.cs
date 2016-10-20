@@ -69,8 +69,6 @@ public class PlayerMovement : MonoBehaviour
 			if(GameManager.Instance.viewState == ViewState.Side)
 				GetSideInput ();			
 		}
-
-		Debug.Log (transform.position.z);
 	}
 
 	void FixedUpdate () 
