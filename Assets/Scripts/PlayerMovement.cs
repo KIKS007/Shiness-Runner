@@ -64,9 +64,10 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate () 
 	{
+		Gravity ();
+
 		if(GameManager.Instance.gameState == GameState.Playing)
 		{
-			Gravity ();
 			
 			if(GameManager.Instance.viewState == ViewState.Top)
 				TopMovement ();

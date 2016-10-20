@@ -13,27 +13,35 @@ public class PlayerAttack : MonoBehaviour
 	public float attackCooldown = 2;
 
 	private Rigidbody rigidBody;
+	private GameObject attackTrigger;
 
 	// Use this for initialization
 	void Start () 
 	{
 		controller = ReInput.players.GetPlayer (0);
 		rigidBody = GetComponent <Rigidbody> ();
+		attackTrigger = transform.GetChild (0).gameObject;
+		attackTrigger.SetActive (false);
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(controller.GetButtonDown ("Attack") && attackState == AttackState.CanAttack)
+		if(controller.GetButtonDown ("Attack") && attackState == AttackState.CanAttack && GameManager.Instance.viewState == ViewState.Top)
 		{
-			attackState = AttackState.Attacking;
 			StartCoroutine (Attack ());
 		}
 	}
 
 	IEnumerator Attack ()
 	{
+		attackState = AttackState.Attacking;
+
+		attackTrigger.SetActive (true);
+
 		yield return new WaitForSeconds (attackDuration);
+
+		attackTrigger.SetActive (false);
 
 		attackState = AttackState.Cooldown;
 
@@ -44,8 +52,9 @@ public class PlayerAttack : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		if(other.tag == "Enemy" && attackState == AttackState.Attacking)
+		if(other.gameObject.tag == "Enemy" && attackState == AttackState.Attacking)
 		{
+			Debug.Log (other.GetComponent<Collider>());
 			KillEnemy (other.gameObject);
 		}
 	}

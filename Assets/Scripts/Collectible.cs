@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Collectible : MonoBehaviour
 {
-
-	public int score = 1;
+	public int score = 0;
+	public static int staticScore = 1;
 
 	// Use this for initialization
 	void Start () {
