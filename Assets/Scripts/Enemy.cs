@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
 
 	void OnCollisionEnter (Collision collision)
 	{
-		if(collision.gameObject.tag == "Player")
+		if(collision.gameObject.tag == "Player" && GameManager.Instance.gameState == GameState.Playing && GameManager.Instance.viewState == ViewState.Top)
 		{
 			Attack ();
 			StartCoroutine (PunchDelay ());

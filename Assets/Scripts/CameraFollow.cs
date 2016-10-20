@@ -6,18 +6,19 @@ public class CameraFollow : MonoBehaviour
 {
 	[Header ("Side Scrolling Settings")]
 	public Ease hitEase;
-	public float topViewScrollSpeed;
-	public float topViewScrollLerp = 0.1f;
-	public float movementYLerp = 0.1f;
+	public float movementLerp = 0.1f;
 	public float lookAtSmooth = 10f;
+	public float followZTweenDuration = 0.1f;
 
 	[Header ("Top View")]
 	public Vector3 topPosition;
 	public float topLookAtYOffset;
+	public float topViewScrollSpeed;
 
 	[Header ("Side View")]
 	public Vector3 sidePosition;
 	public float sideLookAtYOffset;
+	public float sideViewScrollSpeed;
 
 	[Header ("Side Hit")]
 	public float sideScrollHitDistance;
@@ -25,30 +26,25 @@ public class CameraFollow : MonoBehaviour
 	public float sideScrollHitDelay = 2;
 	public float sideDurationToNormal;
 
+	[Header ("Dbug Hit")]
 	public bool hittest = false;
 
 	private GameObject player;
-	//private CameraSwitchView cameraSwitchViewScript;
 	private Transform sideScrollingParent;
-	private Rigidbody parentRigidBody;
 
-	private float topInitialXpos;
 	private float sideInitialXpos;
-
-	public float dist;
+	private CameraSwitchView cameraSwitchScript;
 
 	// Use this for initialization
 	void Start () 
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
-		//cameraSwitchViewScript = GetComponent <CameraSwitchView> ();
 		sideScrollingParent = transform.parent;
-		parentRigidBody = transform.parent.GetComponent <Rigidbody> ();
-
-		topInitialXpos = topPosition.x;
 		sideInitialXpos = sidePosition.x;
+		cameraSwitchScript = GetComponent <CameraSwitchView> ();
 
 		GameManager.Instance.OnSideView += ResetSideScroll;
+		GameManager.Instance.OnSideView += SideViewScrolling;
 	}
 	
 	// Update is called once per frame
@@ -56,14 +52,14 @@ public class CameraFollow : MonoBehaviour
 	{
 		if(GameManager.Instance.gameState == GameState.Playing)
 		{
-			if(GameManager.Instance.viewState == ViewState.Top)
+			/*if(GameManager.Instance.viewState == ViewState.Top)
 			{
-				transform.localPosition = Vector3.Lerp (transform.localPosition, topPosition, movementYLerp);
+				transform.localPosition = Vector3.Lerp (transform.localPosition, topPosition, movementLerp);
 			}
 			else
 			{
-				transform.localPosition = Vector3.Lerp (transform.localPosition, sidePosition, movementYLerp);
-			}
+				transform.localPosition = Vector3.Lerp (transform.localPosition, sidePosition, movementLerp);
+			}*/
 			
 			if(hittest)
 			{
@@ -78,39 +74,46 @@ public class CameraFollow : MonoBehaviour
 	{
 		if(GameManager.Instance.gameState == GameState.Playing)
 		{
-			FollowPlayerPosition ();
-			
+			//FollowPlayerPosition ();
 			SideScrolling ();
 			
+		}
+		else
+		{
+			if(DOTween.IsTweening ("SideScroll"))
+			DOTween.Kill ("SideScroll");
 		}
 	}
 
 	void LateUpdate ()
 	{
-		if(GameManager.Instance.gameState == GameState.Playing)
-			LookAt ();
+		/*if(GameManager.Instance.gameState == GameState.Playing && !cameraSwitchScript.isMovingAlongPath)
+			LookAt ();*/
+	}
+
+	void SideViewScrolling ()
+	{
+		if(DOTween.IsTweening ("SideScrollZ"))
+			DOTween.Kill ("SideScrollZ");
+		
+		sideScrollingParent.DOLocalMoveZ (0, 0.5f).SetId ("SideScrollZ");
 	}
 
 	void SideScrolling ()
 	{
+		if(!cameraSwitchScript.isMovingAlongPath)
+		{
+			if (GameManager.Instance.viewState == ViewState.Top)
+				sideScrollingParent.DOLocalMoveZ (player.transform.position.z, followZTweenDuration).SetLoops (-1).SetId ("SideScrollZ");
+
+		}
+
+
 		if (GameManager.Instance.viewState == ViewState.Top)
-		{
-			Vector3 target = new Vector3 ();
-			
-			target = new Vector3 (sideScrollingParent.position.x + topViewScrollSpeed * Time.fixedDeltaTime, sideScrollingParent.position.y, player.transform.position.z - sideScrollingParent.position.z);
-			sideScrollingParent.position = Vector3.Lerp (sideScrollingParent.position, target, topViewScrollLerp);
-		}
-	}
+			sideScrollingParent.DOLocalMoveX (topViewScrollSpeed, 0.1f).SetLoops (-1).SetRelative (true).SetId ("SideScroll").OnComplete (()=> DOTween.Kill ("SideScroll"));
+		else
+			sideScrollingParent.DOLocalMoveX (sideViewScrollSpeed, 0.1f).SetLoops (-1).SetRelative (true).SetId ("SideScroll").OnComplete (()=> DOTween.Kill ("SideScroll"));
 
-	void FollowPlayerPosition ()
-	{
-		Vector3 target = new Vector3 ();
-
-		if(GameManager.Instance.viewState == ViewState.Side)
-		{
-			target = new Vector3 (player.transform.position.x, player.transform.position.y, 0);
-			sideScrollingParent.position = Vector3.Lerp (sideScrollingParent.position, target, movementYLerp);
-		}
 	}
 
 	void LookAt ()

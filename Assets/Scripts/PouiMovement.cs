@@ -40,10 +40,8 @@ public class PouiMovement : MonoBehaviour
 		rigidBody = GetComponent<Rigidbody> ();
 		raycastDistance = GetComponent <Collider> ().bounds.extents.y + 0.05f;
 
-		GameManager.Instance.OnTopView += ()=> Cursor.lockState = CursorLockMode.Locked;
-		GameManager.Instance.OnSideView += ()=> Cursor.lockState = CursorLockMode.Confined;
 		GameManager.Instance.OnTopView += ()=> StartCoroutine (PouiToTopPosition ());
-
+		GameManager.Instance.OnSideView += ()=> StartCoroutine (PouiToSidePosition ());
 	}
 	
 	// Update is called once per frame
@@ -59,41 +57,48 @@ public class PouiMovement : MonoBehaviour
 			else
 			{
 				MovementSide ();
-			}	
+			}
 		}
 	}
 
 	IEnumerator PouiToTopPosition ()
 	{
+		Cursor.lockState = CursorLockMode.Locked;
 		inTransition = true;
-
-		Vector3 newPos = new Vector3 ();
-		RaycastHit hit = new RaycastHit();
-		Vector3 rayCastDirection = new Vector3 ();
 
 		while(cameraSwitchViewScript.isMovingAlongPath)
 		{
-			rayCastDirection = Input.mousePosition;
-			rayCastDirection.z -= mainCamera.transform.position.z;
-			
-			rayCastDirection = mainCamera.ScreenToWorldPoint (rayCastDirection);
-			
-			Physics.Raycast (mainCamera.transform.position, rayCastDirection - mainCamera.transform.position, out hit, Mathf.Infinity, floorLayer, QueryTriggerInteraction.Collide);
-			
-			newPos = hit.point;
-			newPos.z = 0;
+			transform.position = Vector3.Lerp (transform.position, new Vector3 (mainCamera.transform.position.x, topYOffset, 0), transitionLerp);
 
-			//newPos = TopCheckLimits (mainCamera.WorldToScreenPoint(newPos));
-			newPos = CheckIfCanMove (newPos);
-			newPos.y = topYOffset;
-
-			transform.position = Vector3.Lerp (transform.position, newPos, transitionLerp);
-
-			yield return new WaitForEndOfFrame ();
+			yield return new WaitForFixedUpdate ();
 		}
-			
+
 		inTransition = false;
 		Cursor.lockState = CursorLockMode.None;
+
+		yield return new WaitForSeconds (0.001f);
+
+		Cursor.lockState = CursorLockMode.Confined;
+	}
+
+	IEnumerator PouiToSidePosition ()
+	{
+		Cursor.lockState = CursorLockMode.Locked;
+		inTransition = true;
+
+		while(cameraSwitchViewScript.isMovingAlongPath)
+		{
+			transform.position = Vector3.Lerp (transform.position, new Vector3 (mainCamera.transform.position.x, 3.5f, sideZOffset), transitionLerp);
+
+			yield return new WaitForFixedUpdate	 ();
+		}
+
+		inTransition = false;
+		Cursor.lockState = CursorLockMode.None;
+
+		yield return new WaitForSeconds (0.001f);
+
+		Cursor.lockState = CursorLockMode.Confined;
 	}
 
 	void MovementTop ()

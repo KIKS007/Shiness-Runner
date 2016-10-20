@@ -189,8 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e085ee462dd2e54aa9699ef9e89546f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adaptiveSpeed: 0
-  topMinMovementSpeed: 3
   topMovementSpeed: 6.5
   sideMovementSpeed: 5
   jumpState: 0
