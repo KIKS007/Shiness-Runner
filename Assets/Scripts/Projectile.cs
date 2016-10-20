@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
 
 	private Rigidbody rigidBody;
 	private Transform player;
-	private CameraFollow cameraFollowScript;
+	//private CameraFollow cameraFollowScript;
 
 
 	// Use this for initialization
@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
 	{
 		player = GameObject.FindGameObjectWithTag (("Player")).transform;
 		rigidBody = GetComponent <Rigidbody> ();
-		cameraFollowScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <CameraFollow> ();
+		//cameraFollowScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <CameraFollow> ();
 
 		distanceFromCamera = GameObject.FindGameObjectWithTag ("MainCamera").transform.position.x - transform.position.x;
 

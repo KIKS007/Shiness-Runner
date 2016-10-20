@@ -32,7 +32,6 @@ public class CameraFollow : MonoBehaviour
 	private GameObject player;
 	private Transform sideScrollingParent;
 
-	private float sideInitialXpos;
 	private CameraSwitchView cameraSwitchScript;
 
 	private Rigidbody rigiBodyParent;
@@ -47,7 +46,6 @@ public class CameraFollow : MonoBehaviour
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
 		sideScrollingParent = transform.parent;
-		sideInitialXpos = sidePosition.x;
 		cameraSwitchScript = GetComponent <CameraSwitchView> ();
 
 		rigiBodyParent = sideScrollingParent.GetComponent <Rigidbody> ();

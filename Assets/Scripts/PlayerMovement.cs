@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private Transform poui;
 
-	private CameraSwitchView cameraSwitchScript;
+	//private CameraSwitchView cameraSwitchScript;
 
 	public bool reseting = false;
 
@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 		rigidBody = GetComponent <Rigidbody> ();
 		distToGround = GetComponent <Collider> ().bounds.extents.y;
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
-		cameraSwitchScript = mainCamera.GetComponent <CameraSwitchView> ();
+		//cameraSwitchScript = mainCamera.GetComponent <CameraSwitchView> ();
 		poui = GameObject.FindGameObjectWithTag ("Poui").transform;
 
 		GameManager.Instance.OnSideView += DebugMovement;
@@ -146,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
 		if(controller.GetButtonDown ("SwitchView"))
 		{
 			if (GameManager.Instance.viewState == ViewState.Top)
-				mainCamera.GetComponent <CameraSwitchView> ().TopSide ();
+				mainCamera.GetComponent <CameraSwitchView> ().ToSide ();
 
 			else
 				mainCamera.GetComponent <CameraSwitchView> ().ToTop ();
@@ -217,8 +217,6 @@ public class PlayerMovement : MonoBehaviour
 	
 		if(jumpState != JumpState.Grounded)
 			StartCoroutine (AddGravity ());
-
-		Vector3 forceDirection = new Vector3 ();
 
 		rigidBody.AddForce (-Vector3.right * hitForce, ForceMode.Impulse);
 

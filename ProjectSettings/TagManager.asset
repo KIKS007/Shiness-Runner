@@ -7,6 +7,7 @@ TagManager:
   - Poui
   - Enemy
   - ProjectilesSpawns
+  - Death
   layers:
   - Default
   - TransparentFX

@@ -28,12 +28,12 @@ public class CameraCheckDeath : MonoBehaviour
 		{
 			if(GameManager.Instance.viewState == ViewState.Top && screenPos.x < topXDeathPosition)
 			{
-				GameManager.Instance.GameOver ();
+				GameManager.Instance.Death ();
 			}
 
 			if(GameManager.Instance.viewState == ViewState.Side && screenPos.x < sideXDeathPosition)
 			{
-				GameManager.Instance.GameOver ();
+				GameManager.Instance.Death ();
 			}
 		}
 	}

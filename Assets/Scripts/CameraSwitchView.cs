@@ -67,7 +67,7 @@ public class CameraSwitchView : MonoBehaviour
 			if(toSide)
 			{
 				toSide = false;
-				TopSide ();
+				ToSide ();
 			}			
 		}
 
@@ -99,7 +99,7 @@ public class CameraSwitchView : MonoBehaviour
 		transform.DOLocalPath (toTopPath, toTopDuration, PathType.CatmullRom, PathMode.Ignore, topTopPathResolution, Color.red).OnComplete (()=> isMovingAlongPath = false).SetEase (pathEase);
 	}
 
-	public void TopSide ()
+	public void ToSide ()
 	{
 		isMovingAlongPath = true;
 		GameManager.Instance.viewState = ViewState.Side;
