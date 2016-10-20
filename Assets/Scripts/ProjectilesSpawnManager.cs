@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ProjectilesSpawnManager : Singleton<ProjectilesSpawnManager>
 {
@@ -7,12 +8,14 @@ public class ProjectilesSpawnManager : Singleton<ProjectilesSpawnManager>
 
 	[Header ("Random")]
 	public bool randomPosition;
-	public float randomValue = 1;
+	public float randomValueAdded = 1;
 
 	[Header ("Projectiles Test")]
 	public bool projectileTest = false;
 	public float spawnIntervalle = 2;
 	public float spawnIntervalleRandom = 0.2f;
+
+	public List<int> idList = new List<int> ();
 
 	[HideInInspector]
 	public ProjectileSpawn[] spawns = new ProjectileSpawn[0];
@@ -27,6 +30,9 @@ public class ProjectilesSpawnManager : Singleton<ProjectilesSpawnManager>
 		for(int i = 0; i < spawnParent.childCount; i++)
 		{
 			spawns [i] = spawnParent.GetChild (i).GetComponent <ProjectileSpawn> ();
+
+			if (!idList.Contains (spawns [i].projectileId))
+				idList.Add (spawns [i].projectileId);
 		}
 
 		if(projectileTest)
@@ -37,7 +43,7 @@ public class ProjectilesSpawnManager : Singleton<ProjectilesSpawnManager>
 
 	IEnumerator SpawnProjectilesTest ()
 	{
-		int randomSpawnId = Random.Range (0, spawns.Length);
+		int randomSpawnId = idList[Random.Range (0, idList.Count)];
 		SpawnProjectile (randomSpawnId);
 
 		yield return new WaitForSeconds (Random.Range (spawnIntervalle - spawnIntervalleRandom, spawnIntervalle + spawnIntervalleRandom));
@@ -60,7 +66,7 @@ public class ProjectilesSpawnManager : Singleton<ProjectilesSpawnManager>
 		}
 
 		if(randomPosition)
-			position = new Vector3 (Random.Range (position.x - randomValue, position.x + randomValue), Random.Range (position.y - randomValue, position.y + randomValue), position.z);
+			position = new Vector3 (Random.Range (position.x - randomValueAdded, position.x + randomValueAdded), Random.Range (position.y - randomValueAdded, position.y + randomValueAdded), position.z);
 
 		GameObject clone = Instantiate (projectilePrefab, position, projectilePrefab.transform.rotation) as GameObject;
 

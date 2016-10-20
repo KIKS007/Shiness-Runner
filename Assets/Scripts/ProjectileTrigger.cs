@@ -22,7 +22,7 @@ public class ProjectileTrigger : MonoBehaviour
 
 				else
 				{
-					int randomSpawnId = Random.Range (0, ProjectilesSpawnManager.Instance.spawns.Length);
+					int randomSpawnId = ProjectilesSpawnManager.Instance.idList[Random.Range (0, ProjectilesSpawnManager.Instance.idList.Count)];
 					ProjectilesSpawnManager.Instance.SpawnProjectile (randomSpawnId);
 					Debug.Log (randomSpawnId);
 				}
