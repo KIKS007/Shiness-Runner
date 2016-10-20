@@ -53,22 +53,29 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		GetCommonInput ();
-
-		if(GameManager.Instance.viewState == ViewState.Side)
-			GetSideInput ();			
-
+		if(GameManager.Instance.gameState == GameState.Playing)
+		{
+			GetCommonInput ();
+			
+			if(GameManager.Instance.viewState == ViewState.Side)
+				GetSideInput ();			
+		}
 	}
 
 	void FixedUpdate () 
 	{
 		Gravity ();
-	
-		if(GameManager.Instance.viewState == ViewState.Top)
-			TopMovement ();
 
-		else
-			SideMovement ();
+		if(GameManager.Instance.gameState == GameState.Playing)
+		{
+			
+			if(GameManager.Instance.viewState == ViewState.Top)
+				TopMovement ();
+			
+			else
+				SideMovement ();
+			
+		}
 	}
 
 	void Gravity ()
@@ -81,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 		rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
 
 		Vector3 target = poui.position - transform.position;
-		target.y = transform.position.y;
+		target.y = 0;
 		target.Normalize ();
 
 		if (!adaptiveSpeed)
@@ -114,6 +121,9 @@ public class PlayerMovement : MonoBehaviour
 			else
 				mainCamera.GetComponent <CameraSwitchView> ().ToTop ();
 		}
+
+
+
 	}
 
 	void GetSideInput ()
