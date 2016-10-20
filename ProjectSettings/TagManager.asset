@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Poui
   - Enemy
+  - ProjectilesSpawns
   layers:
   - Default
   - TransparentFX

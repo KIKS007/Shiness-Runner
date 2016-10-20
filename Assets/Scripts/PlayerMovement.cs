@@ -11,8 +11,6 @@ public class PlayerMovement : MonoBehaviour
 	public Player controller;
 
 	[Header ("Top Movement")]
-	public bool adaptiveSpeed = true;
-	public float topMinMovementSpeed = 3;
 	public float topMovementSpeed = 10f;
 
 	[Header ("Side Movement")]
@@ -40,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
 
 	private Transform poui;
 
+	private CameraSwitchView cameraSwitchScript;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -47,7 +47,16 @@ public class PlayerMovement : MonoBehaviour
 		rigidBody = GetComponent <Rigidbody> ();
 		distToGround = GetComponent <Collider> ().bounds.extents.y;
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
+		cameraSwitchScript = mainCamera.GetComponent <CameraSwitchView> ();
 		poui = GameObject.FindGameObjectWithTag ("Poui").transform;
+		GameManager.Instance.OnSideView += DebugMovement;
+
+	}
+
+	void DebugMovement ()
+	{
+		enabled = false;
+		enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -72,7 +81,8 @@ public class PlayerMovement : MonoBehaviour
 			if(GameManager.Instance.viewState == ViewState.Top)
 				TopMovement ();
 			
-			else
+
+			if(GameManager.Instance.viewState == ViewState.Side)
 				SideMovement ();
 			
 		}
@@ -91,24 +101,22 @@ public class PlayerMovement : MonoBehaviour
 		target.y = 0;
 		target.Normalize ();
 
-		if (!adaptiveSpeed)
-			target *= topMovementSpeed;
-		
-		else
-			target *= topMovementSpeed + Vector3.Distance (transform.position, poui.position);
+		if (cameraSwitchScript.isMovingAlongPath)
+			target = new Vector3 (mainCamera.transform.position.x - transform.position.x, 0, 0);
 
+		target *= topMovementSpeed + Vector3.Distance (transform.position, poui.position);
 
 		rigidBody.MovePosition (transform.position + target * Time.fixedDeltaTime);
 	}
 
 	void SideMovement ()
 	{
-		if (transform.position.z != 0)
-			transform.position = Vector3.Lerp (transform.position, new Vector3 (transform.position.x, transform.position.y, 0), 0.1f);
-
 		rigidBody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-		
+
 		rigidBody.MovePosition (transform.position + new Vector3(sideMovementSpeed * Time.fixedDeltaTime, 0, 0));
+
+		if (transform.position.z != 0)
+			transform.DOLocalMoveZ (0, 1);
 	}
 
 	void GetCommonInput ()
@@ -121,9 +129,6 @@ public class PlayerMovement : MonoBehaviour
 			else
 				mainCamera.GetComponent <CameraSwitchView> ().ToTop ();
 		}
-
-
-
 	}
 
 	void GetSideInput ()
@@ -132,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			jumpDuration = 0;
 			jumpState = JumpState.Jumping;
+			rigidBody.velocity = new Vector3(rigidBody.velocity.x, minJumpForce, rigidBody.velocity.z);
 			StartCoroutine (SideJump ());
 		}
 
@@ -140,8 +146,6 @@ public class PlayerMovement : MonoBehaviour
 
 	IEnumerator SideJump ()
 	{
-		rigidBody.velocity = new Vector3(rigidBody.velocity.x, minJumpForce, rigidBody.velocity.z);
-
 		while(controller.GetButton ("Jump") && jumpDuration < maxJumpDuration)
 		{
 			jumpDuration = controller.GetButtonTimePressed ("Jump");

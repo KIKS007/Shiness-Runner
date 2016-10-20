@@ -12,14 +12,12 @@ public class PlayerAttack : MonoBehaviour
 	public float attackDuration = 2;
 	public float attackCooldown = 2;
 
-	private Rigidbody rigidBody;
 	private GameObject attackTrigger;
 
 	// Use this for initialization
 	void Start () 
 	{
 		controller = ReInput.players.GetPlayer (0);
-		rigidBody = GetComponent <Rigidbody> ();
 		attackTrigger = transform.GetChild (0).gameObject;
 		attackTrigger.SetActive (false);
 	}
