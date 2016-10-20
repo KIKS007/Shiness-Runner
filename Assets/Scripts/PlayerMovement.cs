@@ -2,7 +2,6 @@
 using System.Collections;
 using Rewired;
 using DG.Tweening;
-using System;
 
 public enum JumpState {Grounded, Jumping, Falling};
 

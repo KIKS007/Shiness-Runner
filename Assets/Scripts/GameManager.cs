@@ -11,15 +11,11 @@ public class GameManager :  Singleton<GameManager>
 	void Start () 
 	{
 		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Confined;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(viewState == ViewState.Side)
-			Cursor.lockState = CursorLockMode.Confined;
-		else
-			Cursor.lockState = CursorLockMode.None;
+	
 	}
 }

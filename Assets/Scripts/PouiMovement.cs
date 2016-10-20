@@ -7,13 +7,12 @@ public class PouiMovement : MonoBehaviour
 	public LayerMask wallMask;
 
 	[Header ("Top View")]
-	public LayerMask floorLayer;
 	public float topLerp = 1;
 	public float topYOffset;
-	public float topUpLimit = 0.95f;
-	public float topDownLimit = 0.95f;
-	public float topRightLimit = 0.95f;
-	public float topleftLimit = 0.95f;
+	[Range (0, 1)]
+	public float topXLimit = 0.95f;
+	[Range (0, 1)]
+	public float topYLimit = 0.95f;
 
 	[Header ("Side View")]
 	public float sideLerp = 1;
@@ -53,39 +52,32 @@ public class PouiMovement : MonoBehaviour
 
 	void MovementTop ()
 	{
-		Vector3 rayCastDirection = Input.mousePosition;
-		rayCastDirection.z -= mainCamera.transform.position.z;
+		Vector3 newPos = Input.mousePosition;
+		newPos.z = topYOffset - mainCamera.transform.position.z;
+		newPos = TopCheckLimits (newPos);
 
+		newPos = mainCamera.ScreenToWorldPoint (newPos);
 
-		rayCastDirection = mainCamera.ScreenToWorldPoint (rayCastDirection);
-
-		RaycastHit hit = new RaycastHit();
-		Physics.Raycast (mainCamera.transform.position, rayCastDirection - mainCamera.transform.position, out hit, Mathf.Infinity, floorLayer, QueryTriggerInteraction.UseGlobal);
-
-
-		Vector3 newPos = hit.point;
-
-		//newPos = TopCheckLimits (mainCamera.WorldToScreenPoint(newPos));
 		newPos = CheckIfCanMove (newPos);
-		newPos.y = topYOffset;
 
 		Vector3 target = Vector3.Lerp (transform.position, newPos, topLerp);
+
 		rigidBody.MovePosition (target);
 	}
 
 	Vector3 TopCheckLimits (Vector3 mousePos)
 	{
-		if (mousePos.x > topRightLimit * mainCamera.pixelWidth)
-			mousePos.x = topRightLimit * mainCamera.pixelWidth;
+		if (mousePos.x > topXLimit * mainCamera.pixelWidth)
+			mousePos.x = topXLimit * mainCamera.pixelWidth;
 
-		if(mousePos.x < (1 - topleftLimit) * mainCamera.pixelWidth)
-			mousePos.x = (1 - topleftLimit) * mainCamera.pixelWidth;
+		if(mousePos.x < (1 - topXLimit) * mainCamera.pixelWidth)
+			mousePos.x = (1 - topXLimit) * mainCamera.pixelWidth;
 
-		if (mousePos.y > topUpLimit * mainCamera.pixelHeight)
-			mousePos.y = topUpLimit * mainCamera.pixelHeight;
+		if (mousePos.y > topYLimit * mainCamera.pixelHeight)
+			mousePos.y = topYLimit * mainCamera.pixelHeight;
 
-		if(mousePos.y < (1 - topDownLimit) * mainCamera.pixelHeight)
-			mousePos.y = (1 - topDownLimit) * mainCamera.pixelHeight;
+		if(mousePos.y < (1 - topYLimit) * mainCamera.pixelHeight)
+			mousePos.y = (1 - topYLimit) * mainCamera.pixelHeight;
 
 		return mousePos;
 	}
@@ -94,10 +86,9 @@ public class PouiMovement : MonoBehaviour
 	{
 		Vector3 newPos = Input.mousePosition;
 		newPos.z = sideZOffset - mainCamera.transform.position.z;
-		//newPos = SideCheckLimits (newPos);
+		newPos = SideCheckLimits (newPos);
 
 		newPos = mainCamera.ScreenToWorldPoint (newPos);
-		newPos.z = sideZOffset;
 
 		newPos = CheckIfCanMove (newPos);
 

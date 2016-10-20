@@ -22,29 +22,19 @@ public class CameraSwitchView : MonoBehaviour
 	public bool toTop = false;
 	public bool toSide = false;
 
-	//private GameObject player;
+	private GameObject player;
 	private CameraFollow cameraFollowScript;
 
 	void Start () 
 	{
-		//player = GameObject.FindGameObjectWithTag ("Player");
-		cameraFollowScript = GetComponent <CameraFollow> ();
-
-		for(int i = 0; i < waypointsParent.childCount; i++)
-		{
-			toTopPath [i] = waypointsParent.GetChild (i).transform.position;
-			toSidePath [i] = waypointsParent.GetChild (waypointsParent.childCount - 1 - i).transform.position;
-		}
-
-		SetPathEndAndBeginPostition ();
+		player = GameObject.FindGameObjectWithTag ("Player");
+		cameraFollowScript = GetComponent <CameraFollow> ();;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		waypointsParent.position = new Vector3 (transform.position.x, waypointsParent.position.y, waypointsParent.position.z);
-
-		SetPathEndAndBeginPostition ();
 
 		if(toTop)
 		{
@@ -57,21 +47,6 @@ public class CameraSwitchView : MonoBehaviour
 			toSide = false;
 			TopSide ();
 		}		
-	}
-
-	void SetPathEndAndBeginPostition ()
-	{
-		if(toTopPath[toTopPath.Length - 1] != cameraFollowScript.topPosition)
-		{
-			toTopPath [toTopPath.Length - 1] = cameraFollowScript.topPosition;
-			toSidePath [0] = cameraFollowScript.topPosition;
-		}
-
-		if(toTopPath[0] != cameraFollowScript.sidePosition)
-		{
-			toTopPath [0] = cameraFollowScript.sidePosition;
-			toSidePath [toTopPath.Length - 1] = cameraFollowScript.sidePosition;
-		}
 	}
 
 	public void ToTop ()
