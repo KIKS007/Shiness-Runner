@@ -31,20 +31,19 @@ public class Collectible : MonoBehaviour
 			else
 				score = preciousScore;
 
-			GameManager.Instance.AddToScore (collectibleType, score);
+			GameManager.Instance.AddToScore (collectibleType, score, gameObject);
 
 			if (collectibleType == CollectibleType.Simple)
 				Debug.Log ("+" + normalScore.ToString () +  " -> Score : " + GameManager.Instance.score);
 			else
 				Debug.Log ("+" + preciousScore.ToString () +  " -> Score : " + GameManager.Instance.score);
 
-			Destroy ();
+			Disable ();
 		}
 	}
 
-	void Destroy ()
+	void Disable ()
 	{
-		Destroy (gameObject);
-		
+		gameObject.SetActive (false);		
 	}
 }

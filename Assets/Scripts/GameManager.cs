@@ -28,6 +28,8 @@ public class GameManager :  Singleton<GameManager>
 	public int preciousCount = 0;
 	public int preciousCountTemp = 0;
 	public List<GameObject> simpleCollectibles = new List<GameObject> ();
+	public List<GameObject> preciousCollectibles = new List<GameObject> ();
+	public List<GameObject> preciousCollectiblesTemp = new List<GameObject> ();
 
 	[Header ("Checkpoints")]
 	public List<Transform> checkpointsList = new List<Transform> ();
@@ -72,23 +74,22 @@ public class GameManager :  Singleton<GameManager>
 		
 	}
 
-	public void AddToScore (CollectibleType collectibleType, int scoreToAdd, GameObject simpleCollectibleObject = null)
+	public void AddToScore (CollectibleType collectibleType, int scoreToAdd, GameObject collectibleObject)
 	{
 		if(collectibleType == CollectibleType.Simple)
 		{
 			simplesCount += 1;
 			score += scoreToAdd;
-
+			simpleCollectibles.Add (collectibleObject);
 		}
 		else
 		{
 			preciousCount += 1;
 			preciousCountTemp += 1;
 			preciousScoreTemp += scoreToAdd;
-		}
+			preciousCollectiblesTemp.Add (collectibleObject);
 
-		if (simpleCollectibleObject != null)
-			simpleCollectibles.Add (simpleCollectibleObject);
+		}
 	}
 
 	public void CheckpointPassed (Transform checkpoint)
@@ -101,7 +102,11 @@ public class GameManager :  Singleton<GameManager>
 		preciousCountTemp = 0;
 		preciousScoreTemp = 0;
 
+		for (int i = 0; i < preciousCollectiblesTemp.Count; i++)
+			preciousCollectibles.Add (preciousCollectiblesTemp [i]);
+
 		Debug.Log ("Checkpoint Passed : " + checkpointsList[checkpointsList.Count - 1].ToString ());
+		Debug.Log ("Score = " + GameManager.Instance.score);
 	}
 
 	public void LoadPreviousCheckpoint ()
@@ -125,6 +130,11 @@ public class GameManager :  Singleton<GameManager>
 
 		for (int i = 0; i < simpleCollectibles.Count; i++)
 			simpleCollectibles [i].SetActive (false);
+
+		for (int i = 0; i < preciousCollectibles.Count; i++)
+			preciousCollectibles [i].SetActive (false);
+			
+		preciousCollectiblesTemp.Clear ();
 
 		preciousCount -= preciousCountTemp;
 		preciousCountTemp = 0;
