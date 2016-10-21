@@ -190,12 +190,12 @@ MonoBehaviour:
     type: 2}
   randomPosition: 0
   randomValueAdded: 1
-  projectileTest: 0
-  spawnIntervalle: 0.5
+  projectileTest: 1
+  spawnIntervalle: 2
   spawnIntervalleRandom: 0.2
   idList: 
   spawns: []
-  spawnEnable: 0
+  spawnEnable: 1
 --- !u!4 &453433625
 Transform:
   m_ObjectHideFlags: 0

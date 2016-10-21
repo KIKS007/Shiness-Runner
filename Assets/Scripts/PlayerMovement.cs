@@ -136,8 +136,12 @@ public class PlayerMovement : MonoBehaviour
 		target.y = 0;
 		target.Normalize ();
 
-		/*if (cameraSwitchScript.isMovingAlongPath)
-			target = new Vector3 (mainCamera.transform.position.x - transform.position.x, 0, 0);*/
+
+		Vector3 pouiTarget = poui.position;
+		pouiTarget.y = transform.position.y;
+
+		transform.LookAt (pouiTarget);
+
 
 		target *= reseting ? hitSpeed : topMovementSpeed;
 

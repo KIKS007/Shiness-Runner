@@ -5,6 +5,9 @@ public class PlayerAnimations : MonoBehaviour
 {
 	public Animator anim;
 
+	public float topRunningSpeed;
+	public float sideRunningSpeed;
+
 	private PlayerMovement playerScript;
 
 	// Use this for initialization
@@ -17,6 +20,9 @@ public class PlayerAnimations : MonoBehaviour
 		playerScript.OnKick += Kick;
 		playerScript.OnHit += Hit;
 		playerScript.OnDeath += Death;
+
+		GameManager.Instance.OnTopView += TopSpeed;
+		GameManager.Instance.OnSideView += SideSpeed;
 	}
 	
 	// Update is called once per frame
@@ -52,5 +58,15 @@ public class PlayerAnimations : MonoBehaviour
 	{
 		anim.SetTrigger ("Death");
 
+	}
+
+	void TopSpeed ()
+	{
+		anim.SetFloat ("RunMultiplier", topRunningSpeed);
+	}
+
+	void SideSpeed ()
+	{
+		anim.SetFloat ("RunMultiplier", sideRunningSpeed);
 	}
 }
