@@ -199,7 +199,6 @@ public class GameManager :  Singleton<GameManager>
 
 	IEnumerator ToTopCoroutine ()
 	{
-
 		float speed = playerMovementScript.topMovementSpeed;
 		float cameraSpeed = cameraFollowScript.topViewScrollSpeed;
 
@@ -240,6 +239,8 @@ public class GameManager :  Singleton<GameManager>
 	{
 		gameState = GameState.GameOver;
 		Debug.Log ("Gameover");
+
+		playerMovementScript.DeathEvent ();
 
 		LoadPreviousCheckpoint ();
 	}

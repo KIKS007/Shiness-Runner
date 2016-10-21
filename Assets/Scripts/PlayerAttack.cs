@@ -37,6 +37,8 @@ public class PlayerAttack : MonoBehaviour
 
 		attackTrigger.SetActive (true);
 
+		GetComponent <PlayerMovement> ().KickEvent ();
+
 		yield return new WaitForSeconds (attackDuration);
 
 		attackTrigger.SetActive (false);

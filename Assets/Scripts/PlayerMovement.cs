@@ -8,6 +8,15 @@ public enum JumpState {Grounded, Jumping, Falling};
 
 public class PlayerMovement : MonoBehaviour 
 {
+	public event EventHandler OnHit;
+	public event EventHandler OnDeath;
+	public event EventHandler Running;
+	public event EventHandler OnKick;
+	public event EventHandler OnJumpStart;
+	public event EventHandler Jumping;
+	public event EventHandler OnJumpEnd;
+	public event EventHandler Falling;
+
 	public Player controller;
 
 	[Header ("Top Movement")]
@@ -106,6 +115,12 @@ public class PlayerMovement : MonoBehaviour
 				SideMovement ();
 			
 		}
+
+		if(jumpState == JumpState.Falling)
+		{
+			if (Falling != null)
+				Falling ();
+		}
 	}
 
 	void Gravity ()
@@ -126,6 +141,12 @@ public class PlayerMovement : MonoBehaviour
 
 		target *= reseting ? hitSpeed : topMovementSpeed;
 
+		if(IsGrounded ())
+		{
+			if (Running != null)
+				Running ();			
+		}
+
 		rigidBody.MovePosition (transform.position + target * Time.fixedDeltaTime);
 	}
 
@@ -134,6 +155,12 @@ public class PlayerMovement : MonoBehaviour
 		rigidBody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
 
 		float speed = reseting ? hitSpeed : sideMovementSpeed;
+
+		if(IsGrounded ())
+		{
+			if (Running != null)
+				Running ();			
+		}
 
 		rigidBody.MovePosition (transform.position + new Vector3(speed * Time.fixedDeltaTime, 0, 0));
 
@@ -164,6 +191,10 @@ public class PlayerMovement : MonoBehaviour
 		{
 			jumpDuration = 0;
 			jumpState = JumpState.Jumping;
+
+			if (OnJumpStart != null)
+				OnJumpStart ();	
+
 			rigidBody.velocity = new Vector3(rigidBody.velocity.x, minJumpForce, rigidBody.velocity.z);
 			StartCoroutine (SideJump ());
 		}
@@ -176,9 +207,16 @@ public class PlayerMovement : MonoBehaviour
 		while(controller.GetButton ("Jump") && jumpDuration < maxJumpDuration)
 		{
 			jumpDuration = controller.GetButtonTimePressed ("Jump");
+
+			if (Jumping != null)
+				Jumping ();	
+
 			rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce, rigidBody.velocity.z);
 			yield return null;
 		}
+
+		if (OnJumpEnd != null)
+			OnJumpEnd ();	
 
 		jumpState = JumpState.Falling;
 	}
@@ -223,6 +261,9 @@ public class PlayerMovement : MonoBehaviour
 		if(jumpState != JumpState.Grounded)
 			StartCoroutine (AddGravity ());
 
+		if (OnHit != null)
+			OnHit ();
+		
 		rigidBody.AddForce (-Vector3.right * hitForce, ForceMode.Impulse);
 
 		StartCoroutine (WaitReset ());
@@ -265,5 +306,17 @@ public class PlayerMovement : MonoBehaviour
 			yield return new WaitForFixedUpdate ();
 
 		} while (jumpState != JumpState.Grounded);
+	}
+
+	public void DeathEvent ()
+	{
+		if (OnDeath != null)
+			OnDeath ();
+	}
+
+	public void KickEvent ()
+	{
+		if (OnKick != null)
+			OnKick ();
 	}
 }
