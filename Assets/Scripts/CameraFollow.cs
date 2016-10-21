@@ -50,6 +50,11 @@ public class CameraFollow : MonoBehaviour
 
 		rigiBodyParent = sideScrollingParent.GetComponent <Rigidbody> ();
 
+		SubscribeEvents ();
+	}
+
+	public void SubscribeEvents ()
+	{
 		GameManager.Instance.OnSideView += SideViewScrolling;
 		GameManager.Instance.OnTopView += DebugMovement;
 
@@ -94,7 +99,9 @@ public class CameraFollow : MonoBehaviour
 	{
 		if(DOTween.IsTweening ("SideScrollZ"))
 			DOTween.Kill ("SideScrollZ");
-		
+
+		Debug.Log ("Scroll Z");
+
 		sideScrollingParent.DOLocalMoveZ (0, 1f).SetId ("SideScrollZ");
 	}
 

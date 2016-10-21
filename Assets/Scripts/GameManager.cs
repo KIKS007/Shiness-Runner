@@ -24,7 +24,7 @@ public class GameManager :  Singleton<GameManager>
 	public int preciousScoreTemp = 0;
 
 	[Header ("Collectibles")]
-	public int normalsCount = 0;
+	public int simplesCount = 0;
 	public int preciousCount = 0;
 	public int preciousCountTemp = 0;
 	public List<GameObject> simpleCollectibles = new List<GameObject> ();
@@ -72,12 +72,13 @@ public class GameManager :  Singleton<GameManager>
 		
 	}
 
-	public void AddToScore (CollectibleType collectibleType, int scoreToAdd)
+	public void AddToScore (CollectibleType collectibleType, int scoreToAdd, GameObject simpleCollectibleObject = null)
 	{
 		if(collectibleType == CollectibleType.Simple)
 		{
-			normalsCount += 1;
+			simplesCount += 1;
 			score += scoreToAdd;
+
 		}
 		else
 		{
@@ -85,6 +86,9 @@ public class GameManager :  Singleton<GameManager>
 			preciousCountTemp += 1;
 			preciousScoreTemp += scoreToAdd;
 		}
+
+		if (simpleCollectibleObject != null)
+			simpleCollectibles.Add (simpleCollectibleObject);
 	}
 
 	public void CheckpointPassed (Transform checkpoint)
@@ -96,6 +100,8 @@ public class GameManager :  Singleton<GameManager>
 
 		preciousCountTemp = 0;
 		preciousScoreTemp = 0;
+
+		Debug.Log ("Checkpoint Passed : " + checkpointsList[checkpointsList.Count - 1].ToString ());
 	}
 
 	public void LoadPreviousCheckpoint ()
@@ -126,12 +132,16 @@ public class GameManager :  Singleton<GameManager>
 
 		Vector3 position = new Vector3 (checkpointsList [checkpointsList.Count - 1].position.x, checkpointsList [checkpointsList.Count - 1].position.y + 4, checkpointsList [checkpointsList.Count - 1].position.z);
 
+		Debug.Log ("Checkpoint Loaded : " + checkpointsList[checkpointsList.Count - 1].ToString ());
+
 		player = GameObject.FindGameObjectWithTag ("Player");
 		player.transform.position = position;
 		player.SetActive (true);
 
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
 		mainCamera.transform.parent.transform.position = new Vector3 (position.x, 0, 0);
+
+		cameraFollowScript.SubscribeEvents ();
 
 		cameraSwitchScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <CameraSwitchView>();
 

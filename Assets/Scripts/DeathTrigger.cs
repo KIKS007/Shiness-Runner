@@ -3,10 +3,14 @@ using System.Collections;
 
 public class DeathTrigger : MonoBehaviour 
 {
-	void OnTriggerEnter (Collider other)
+	void OnCollisionEnter (Collision other)
 	{
-		if(other.gameObject.tag == "Player")
+		Debug.Log (other.collider);
+
+		if(other.gameObject.tag == "Player" && GameManager.Instance.gameState == GameState.Playing)
 		{
+			Debug.Log ("Bite");
+			GameManager.Instance.gameState = GameState.GameOver;
 			GameManager.Instance.Death();
 		}
 	}
