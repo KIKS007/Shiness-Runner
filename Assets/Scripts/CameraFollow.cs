@@ -53,7 +53,6 @@ public class CameraFollow : MonoBehaviour
 		GameManager.Instance.OnSideView += SideViewScrolling;
 		GameManager.Instance.OnTopView += DebugMovement;
 
-
 		GameManager.Instance.OnTopView += ()=> StartCoroutine (ResetScroll());
 		GameManager.Instance.OnSideView += ()=> StartCoroutine (ResetScroll());
 	}
@@ -67,7 +66,11 @@ public class CameraFollow : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		distX = player.transform.position.x - sideScrollingParent.transform.position.x;
+		if(player == null && GameObject.FindGameObjectWithTag ("Player") != null)
+			player = GameObject.FindGameObjectWithTag ("Player");
+			
+		if(player != null)
+			distX = player.transform.position.x - sideScrollingParent.transform.position.x;
 
 		speed = rigiBodyParent.velocity.x;
 	}
@@ -121,14 +124,10 @@ public class CameraFollow : MonoBehaviour
 
 	IEnumerator ResetScroll ()
 	{
-		Debug.Log ("Reseting");
-
 		reseting = true;
 
 		yield return new WaitWhile (()=> Mathf.Abs (player.transform.position.x - sideScrollingParent.transform.position.x) > 0.3f);
 
 		reseting = false;
-
-		Debug.Log ("bite");
 	}
 }

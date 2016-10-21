@@ -61,7 +61,7 @@ public class PouiMovement : MonoBehaviour
 		}
 	}
 
-	IEnumerator PouiToTopPosition ()
+	public IEnumerator PouiToTopPosition ()
 	{
 		Cursor.lockState = CursorLockMode.Locked;
 		inTransition = true;
@@ -81,7 +81,7 @@ public class PouiMovement : MonoBehaviour
 		Cursor.lockState = CursorLockMode.Confined;
 	}
 
-	IEnumerator PouiToSidePosition ()
+	public IEnumerator PouiToSidePosition ()
 	{
 		Cursor.lockState = CursorLockMode.Locked;
 		inTransition = true;

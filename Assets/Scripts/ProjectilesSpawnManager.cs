@@ -23,7 +23,7 @@ public class ProjectilesSpawnManager : Singleton<ProjectilesSpawnManager>
 	// Use this for initialization
 	void Start () 
 	{
-		DontDestroyOnLoad (ProjectilesSpawnManager.Instance);
+		//DontDestroyOnLoad (ProjectilesSpawnManager.Instance);
 
 		Transform spawnParent = GameObject.FindGameObjectWithTag ("ProjectilesSpawns").transform;
 

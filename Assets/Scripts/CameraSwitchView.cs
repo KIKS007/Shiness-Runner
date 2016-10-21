@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using DG.Tweening.Plugins.Core.PathCore;
 
 public class CameraSwitchView : MonoBehaviour 
 {
 	public bool isMovingAlongPath = false;
-	public Transform sideWaypointsParent;
-	public Transform topWaypointsParent;
+	private Transform sideWaypointsParent;
+	private Transform topWaypointsParent;
 	public Ease pathEase = Ease.OutQuad;
 
 	[Header ("Side To Top Path")]
@@ -25,6 +26,9 @@ public class CameraSwitchView : MonoBehaviour
 	public bool toTop = false;
 	public bool toSide = false;
 
+	public Tween topPathClass;
+	public Tween sidePathClass;
+
 	//private GameObject player;
 	private CameraFollow cameraFollowScript;
 
@@ -32,6 +36,9 @@ public class CameraSwitchView : MonoBehaviour
 	{
 		//player = GameObject.FindGameObjectWithTag ("Player");
 		cameraFollowScript = GetComponent <CameraFollow> ();
+
+		topWaypointsParent = GameObject.FindGameObjectWithTag ("TopPath").transform;
+		sideWaypointsParent = GameObject.FindGameObjectWithTag ("TopPath").transform;
 
 		toTopPath = new Vector3[3];
 		toSidePath = new Vector3[3];
@@ -94,8 +101,11 @@ public class CameraSwitchView : MonoBehaviour
 		isMovingAlongPath = true;
 		GameManager.Instance.viewState = ViewState.Top;
 
+		if(cameraFollowScript == null)
+			cameraFollowScript = GetComponent <CameraFollow> ();
+		
 		transform.DOLocalMoveX (cameraFollowScript.topPosition.x, toTopDuration).SetEase (pathEase);
-		transform.DOLocalRotate (new Vector3(65.3f, 0, 0), toTopDuration).SetEase (pathEase);
+		topPathClass = transform.DOLocalRotate (new Vector3(65.3f, 0, 0), toTopDuration).SetEase (pathEase);
 		transform.DOLocalPath (toTopPath, toTopDuration, PathType.CatmullRom, PathMode.Ignore, topTopPathResolution, Color.red).OnComplete (()=> isMovingAlongPath = false).SetEase (pathEase);
 	}
 
@@ -104,8 +114,11 @@ public class CameraSwitchView : MonoBehaviour
 		isMovingAlongPath = true;
 		GameManager.Instance.viewState = ViewState.Side;
 
+		if(cameraFollowScript == null)
+			cameraFollowScript = GetComponent <CameraFollow> ();
+
 		transform.DOLocalMoveX (cameraFollowScript.sidePosition.x, toSideDuration).SetEase (pathEase);
-		transform.DOLocalRotate (new Vector3(0, 0, 0), toTopDuration).SetEase (pathEase);
+		sidePathClass = transform.DOLocalRotate (new Vector3(0, 0, 0), toTopDuration).SetEase (pathEase);
 		transform.DOLocalPath (toSidePath, toSideDuration, PathType.CatmullRom, PathMode.Ignore, topSidePathResolution, Color.green).OnComplete (()=> isMovingAlongPath = false).SetEase (pathEase);
 	}
 }

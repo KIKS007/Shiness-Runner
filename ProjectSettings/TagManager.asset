@@ -8,6 +8,10 @@ TagManager:
   - Enemy
   - ProjectilesSpawns
   - Death
+  - Checkpoint
+  - SideScrolling
+  - SidePath
+  - TopPath
   layers:
   - Default
   - TransparentFX

@@ -80,6 +80,7 @@ GameObject:
   - 33: {fileID: 33000012881395186}
   - 64: {fileID: 64000011287210170}
   - 23: {fileID: 23000011933063938}
+  - 114: {fileID: 114000010800316778}
   m_Layer: 0
   m_Name: DeathFloor
   m_TagString: Death
@@ -134,7 +135,7 @@ GameObject:
   - 54: {fileID: 54000011722296214}
   m_Layer: 0
   m_Name: Slide Scrolling
-  m_TagString: Untagged
+  m_TagString: SideScrolling
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -532,6 +533,17 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012004378862}
   m_Enabled: 1
+--- !u!114 &114000010800316778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012135076954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24bb726af42748489499f6ff3c46971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011944708172
 MonoBehaviour:
   m_ObjectHideFlags: 1

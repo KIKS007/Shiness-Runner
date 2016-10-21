@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using Rewired;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public enum GameState {Menu, Playing, Paused, GameOver};
 public enum ViewState {Side, Top};
@@ -35,12 +36,14 @@ public class GameManager :  Singleton<GameManager>
 	public float delayBeforeResume = 3;
 
 	private GameObject player;
+	private GameObject mainCamera;
 	private CameraSwitchView cameraSwitchScript;
+	private CameraFollow cameraFollowScript;
 
 	// Use this for initialization
 	void Start () 
 	{
-		DontDestroyOnLoad (GameManager.Instance);
+		//DontDestroyOnLoad (GameManager.Instance);
 
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Confined;
@@ -49,13 +52,24 @@ public class GameManager :  Singleton<GameManager>
 		StartCoroutine (OnSideViewEvent ());
 
 		player = GameObject.FindGameObjectWithTag ("Player");
+		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
 		cameraSwitchScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <CameraSwitchView>();
+		cameraFollowScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <CameraFollow>();
 	}
-	
+
+	void ClearEvents ()
+	{
+		OnTopView = null;
+		OnSideView = null;
+		cameraSwitchScript.topPathClass.Kill ();
+		cameraSwitchScript.sidePathClass.Kill ();
+		DOTween.Clear ();
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
-		Debug.Log (Cursor.lockState);
+		
 	}
 
 	public void AddToScore (CollectibleType collectibleType, int scoreToAdd)
@@ -91,7 +105,17 @@ public class GameManager :  Singleton<GameManager>
 
 	IEnumerator LoadPreviousCheckpointCoroutine ()
 	{
-		SceneManager.LoadScene (0);
+		ClearEvents ();
+
+		SceneManager.UnloadScene (1);
+
+		yield return SceneManager.LoadSceneAsync (1, LoadSceneMode.Additive);
+
+		Cursor.lockState = CursorLockMode.None;
+
+		yield return new WaitForSeconds (0.001f);
+
+		Cursor.lockState = CursorLockMode.Confined;
 
 		for (int i = 0; i < simpleCollectibles.Count; i++)
 			simpleCollectibles [i].SetActive (false);
@@ -100,16 +124,32 @@ public class GameManager :  Singleton<GameManager>
 		preciousCountTemp = 0;
 		preciousScoreTemp = 0;
 
-		Vector3 position = new Vector3 (checkpointsList [checkpointsList.Count - 1].position.x, checkpointsList [checkpointsList.Count - 1].position.y + 2, checkpointsList [checkpointsList.Count - 1].position.z);
+		Vector3 position = new Vector3 (checkpointsList [checkpointsList.Count - 1].position.x, checkpointsList [checkpointsList.Count - 1].position.y + 4, checkpointsList [checkpointsList.Count - 1].position.z);
 
+		player = GameObject.FindGameObjectWithTag ("Player");
 		player.transform.position = position;
 		player.SetActive (true);
 
+		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
+		mainCamera.transform.parent.transform.position = new Vector3 (position.x, 0, 0);
+
+		cameraSwitchScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <CameraSwitchView>();
+
 		if (checkpointsList [checkpointsList.Count - 1].GetComponent <Checkpoint> ().viewStateOnSpawn == ViewState.Top && GameManager.Instance.viewState != checkpointsList [checkpointsList.Count - 1].GetComponent <Checkpoint> ().viewStateOnSpawn)
+		{
+			mainCamera.transform.position = cameraFollowScript.sidePosition;
+			mainCamera.transform.rotation = Quaternion.Euler(new Vector3 (0, 0, 0));
 			ToTop ();
+			GameObject.FindGameObjectWithTag ("Poui").GetComponent <PouiMovement> ().StartCoroutine ("PouiToTopPosition");
+		}
 
 		if (checkpointsList [checkpointsList.Count - 1].GetComponent <Checkpoint> ().viewStateOnSpawn == ViewState.Side && GameManager.Instance.viewState != checkpointsList [checkpointsList.Count - 1].GetComponent <Checkpoint> ().viewStateOnSpawn)
+		{
+			mainCamera.transform.position = cameraFollowScript.topPosition;
+			mainCamera.transform.rotation = Quaternion.Euler(new Vector3 (65, 0, 0));
 			ToSide ();
+			GameObject.FindGameObjectWithTag ("Poui").GetComponent <PouiMovement> ().StartCoroutine ("PouiToSidePosition");
+		}
 
 		Cursor.lockState = CursorLockMode.None;
 
