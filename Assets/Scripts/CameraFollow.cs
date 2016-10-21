@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using Rewired;
 
 public class CameraFollow : MonoBehaviour 
 {
@@ -8,7 +9,8 @@ public class CameraFollow : MonoBehaviour
 	public Ease hitEase;
 	public float movementLerp = 0.1f;
 	public float followZTweenDuration = 0.1f;
-	public float resetXScrollSpeed = 0.1f;
+	public float resetScrollTransitionSpeed = 20;
+	public float resetScrollPlayerSpeed = 10;
 
 	[Header ("Top View")]
 	public Vector3 topPosition;
@@ -21,10 +23,8 @@ public class CameraFollow : MonoBehaviour
 	public float sideViewScrollSpeed;
 
 	[Header ("Side Hit")]
-	public float sideScrollHitDistance;
-	public float sideScrollHitDuration;
 	public float sideScrollHitDelay = 2;
-	public float sideDurationToNormal;
+	public float sideScrollHitForce = 2;
 
 	[Header ("Dbug Hit")]
 	public bool hittest = false;
@@ -32,7 +32,6 @@ public class CameraFollow : MonoBehaviour
 	private GameObject player;
 	private Transform sideScrollingParent;
 
-	private float sideInitialXpos;
 	private CameraSwitchView cameraSwitchScript;
 
 	private Rigidbody rigiBodyParent;
@@ -40,24 +39,22 @@ public class CameraFollow : MonoBehaviour
 	private bool reseting = false;
 
 	public float distX;
+	public float speed;
 
 	// Use this for initialization
 	void Start () 
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
 		sideScrollingParent = transform.parent;
-		sideInitialXpos = sidePosition.x;
 		cameraSwitchScript = GetComponent <CameraSwitchView> ();
 
 		rigiBodyParent = sideScrollingParent.GetComponent <Rigidbody> ();
 
-		GameManager.Instance.OnSideView += ResetSideScroll;
 		GameManager.Instance.OnSideView += SideViewScrolling;
 		GameManager.Instance.OnTopView += DebugMovement;
 
-
-		GameManager.Instance.OnTopView += ()=> StartCoroutine (ResetXScroll ());
-		GameManager.Instance.OnSideView += ()=> StartCoroutine (ResetXScroll ());
+		GameManager.Instance.OnTopView += ()=> StartCoroutine (ResetScroll());
+		GameManager.Instance.OnSideView += ()=> StartCoroutine (ResetScroll());
 	}
 
 	void DebugMovement ()
@@ -65,54 +62,17 @@ public class CameraFollow : MonoBehaviour
 		enabled = false;
 		enabled = true;
 	}
-
-	IEnumerator ResetXScroll ()
-	{
-		reseting = true;
-
-		do 
-		{
-			Vector3 target = new Vector3(player.transform.position.x - sideScrollingParent.position.x, 0, 0);
-			target.Normalize ();
-			/*//sideScrollingParent.position = Vector3.Lerp (sideScrollingParent.position, target, resetXScrollSpeed);
-
-			Debug.Log (Mathf.Abs (sideScrollingParent.position.x - player.transform.position.x));
-
-			rigiBodyParent.DOMoveX (player.transform.position.x, resetXScrollSpeed).SetLoops (-1).SetId ("Reset");*/			 
-
-			rigiBodyParent.MovePosition(sideScrollingParent.position + target * Time.fixedDeltaTime * resetXScrollSpeed);
-			yield return new WaitForFixedUpdate ();	
-		} 
-		while(Mathf.Abs (sideScrollingParent.position.x - player.transform.position.x) > 0.3f);
-
-		DOTween.Kill ("Reset");
-
-		reseting = false;
-
-		Debug.Log ("resting false");
-	}
-
+		
 	// Update is called once per frame
 	void Update () 
 	{
-		if(GameManager.Instance.gameState == GameState.Playing)
-		{
-			/*if(GameManager.Instance.viewState == ViewState.Top)
-			{
-				transform.localPosition = Vector3.Lerp (transform.localPosition, topPosition, movementLerp);
-			}
-			else
-			{
-				transform.localPosition = Vector3.Lerp (transform.localPosition, sidePosition, movementLerp);
-			}*/
+		if(player == null && GameObject.FindGameObjectWithTag ("Player") != null)
+			player = GameObject.FindGameObjectWithTag ("Player");
 			
-			if(hittest)
-			{
-				hittest = false;
-				
-				ScrollingHit ();
-			}	
-		}
+		if(player != null)
+			distX = player.transform.position.x - sideScrollingParent.transform.position.x;
+
+		speed = rigiBodyParent.velocity.x;
 	}
 		
 	void FixedUpdate ()
@@ -154,33 +114,20 @@ public class CameraFollow : MonoBehaviour
 			else
 				rigiBodyParent.MovePosition (sideScrollingParent.transform.position + new Vector3(sideViewScrollSpeed * Time.fixedDeltaTime, 0, 0));	
 		}
-	}
-
-	public void ScrollingHit ()
-	{
-		DOTween.Kill ("ScrollHit");
-		DOTween.Kill ("ScrollReset");
-
-		if(GameManager.Instance.viewState == ViewState.Side)
+		else
 		{
-			DOTween.To(()=> sidePosition, x=> sidePosition = x, new Vector3(sidePosition.x + sideScrollHitDistance, sidePosition.y, sidePosition.z), sideScrollHitDuration).SetEase (hitEase).SetId ("ScrollHit").OnComplete (ResetScrolling);
-		}
-
-	}
-
-	void ResetScrolling ()
-	{
-		if(GameManager.Instance.viewState == ViewState.Side)
-		{
-			float duration = -(sideInitialXpos - sidePosition.x) / sideDurationToNormal;
-
-			DOTween.To(()=> sidePosition, x=> sidePosition = x, new Vector3(sideInitialXpos, sidePosition.y, sidePosition.z), duration).SetEase (hitEase).SetId ("ScrollReset").SetDelay (sideScrollHitDelay);
+			Vector3 target = new Vector3(player.transform.position.x - sideScrollingParent.transform.position.x, 0, 0);
+			target.Normalize ();
+			rigiBodyParent.MovePosition (sideScrollingParent.transform.position + target * resetScrollTransitionSpeed * Time.fixedDeltaTime);
 		}
 	}
 
-	void ResetSideScroll ()
+	IEnumerator ResetScroll ()
 	{
-		DOTween.To(()=> sidePosition, x=> sidePosition = x, new Vector3(sideInitialXpos, sidePosition.y, sidePosition.z), 2).SetEase (hitEase).SetId ("ScrollReset");
-	}
+		reseting = true;
 
+		yield return new WaitWhile (()=> Mathf.Abs (player.transform.position.x - sideScrollingParent.transform.position.x) > 0.3f);
+
+		reseting = false;
+	}
 }

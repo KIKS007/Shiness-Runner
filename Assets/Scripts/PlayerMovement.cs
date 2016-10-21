@@ -16,6 +16,13 @@ public class PlayerMovement : MonoBehaviour
 	[Header ("Side Movement")]
 	public float sideMovementSpeed = 10f;
 
+	[Header ("Hit & Reset Scroll")]
+	public float hitSpeed;
+	public bool hitTest = false;
+	public float hitForce = 2;
+	public float hitDelay = 2;
+	public float speedAdded = 2;
+
 	[Header ("Side Jump")]
 	public JumpState jumpState = JumpState.Grounded;
 	public float jumpDuration;
@@ -27,7 +34,10 @@ public class PlayerMovement : MonoBehaviour
 	[Header ("Grounded")]
 	public LayerMask wallLayer;
 	public float groundedRayLength = 0.2f;
+
+	[Header ("Gravity")]
 	public float gravityForce = 40f;
+	public float gravityForceHit = 40f;
 
 
 	private Rigidbody rigidBody;
@@ -38,7 +48,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private Transform poui;
 
-	private CameraSwitchView cameraSwitchScript;
+	//private CameraSwitchView cameraSwitchScript;
+
+	public bool reseting = false;
 
 	// Use this for initialization
 	void Start () 
@@ -47,8 +59,9 @@ public class PlayerMovement : MonoBehaviour
 		rigidBody = GetComponent <Rigidbody> ();
 		distToGround = GetComponent <Collider> ().bounds.extents.y;
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
-		cameraSwitchScript = mainCamera.GetComponent <CameraSwitchView> ();
+		//cameraSwitchScript = mainCamera.GetComponent <CameraSwitchView> ();
 		poui = GameObject.FindGameObjectWithTag ("Poui").transform;
+
 		GameManager.Instance.OnSideView += DebugMovement;
 
 	}
@@ -67,7 +80,14 @@ public class PlayerMovement : MonoBehaviour
 			GetCommonInput ();
 			
 			if(GameManager.Instance.viewState == ViewState.Side)
-				GetSideInput ();			
+				GetSideInput ();	
+
+			if(hitTest)
+			{
+				hitTest = false;
+
+				Hit ();
+			}	
 		}
 	}
 
@@ -101,10 +121,10 @@ public class PlayerMovement : MonoBehaviour
 		target.y = 0;
 		target.Normalize ();
 
-		if (cameraSwitchScript.isMovingAlongPath)
-			target = new Vector3 (mainCamera.transform.position.x - transform.position.x, 0, 0);
+		/*if (cameraSwitchScript.isMovingAlongPath)
+			target = new Vector3 (mainCamera.transform.position.x - transform.position.x, 0, 0);*/
 
-		target *= topMovementSpeed + Vector3.Distance (transform.position, poui.position);
+		target *= reseting ? hitSpeed : topMovementSpeed;
 
 		rigidBody.MovePosition (transform.position + target * Time.fixedDeltaTime);
 	}
@@ -113,7 +133,9 @@ public class PlayerMovement : MonoBehaviour
 	{
 		rigidBody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
 
-		rigidBody.MovePosition (transform.position + new Vector3(sideMovementSpeed * Time.fixedDeltaTime, 0, 0));
+		float speed = reseting ? hitSpeed : sideMovementSpeed;
+
+		rigidBody.MovePosition (transform.position + new Vector3(speed * Time.fixedDeltaTime, 0, 0));
 
 		if (transform.position.z != 0)
 			transform.DOLocalMoveZ (0, 1);
@@ -124,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
 		if(controller.GetButtonDown ("SwitchView"))
 		{
 			if (GameManager.Instance.viewState == ViewState.Top)
-				mainCamera.GetComponent <CameraSwitchView> ().TopSide ();
+				mainCamera.GetComponent <CameraSwitchView> ().ToSide ();
 
 			else
 				mainCamera.GetComponent <CameraSwitchView> ().ToTop ();
@@ -185,5 +207,58 @@ public class PlayerMovement : MonoBehaviour
 
 		else
 			return false;
+	}
+
+	public void Hit ()
+	{
+		reseting = false;
+		StopCoroutine (WaitReset ());
+		StopCoroutine (ResetScrollPlayer ());
+	
+		if(jumpState != JumpState.Grounded)
+			StartCoroutine (AddGravity ());
+
+		rigidBody.AddForce (-Vector3.right * hitForce, ForceMode.Impulse);
+
+		StartCoroutine (WaitReset ());
+	}
+
+	IEnumerator WaitReset ()
+	{
+		yield return new WaitForSeconds (hitDelay);
+
+		StartCoroutine (ResetScrollPlayer ());
+	}
+
+	IEnumerator ResetScrollPlayer ()
+	{
+		reseting = true;
+		
+		if(GameManager.Instance.viewState == ViewState.Top)
+		{
+			hitSpeed = topMovementSpeed;
+			hitSpeed += speedAdded;
+		}
+		else
+		{
+			hitSpeed = sideMovementSpeed;
+			hitSpeed += speedAdded;
+		}
+		
+		yield return new WaitWhile (()=> Mathf.Abs (mainCamera.transform.parent.position.x - transform.position.x) > 0.3f);
+		
+		reseting = false;		
+
+	}
+
+	IEnumerator AddGravity ()
+	{
+		do
+		{
+			rigidBody.AddForce (new Vector3(0, -gravityForceHit, 0), ForceMode.Force);
+
+			yield return new WaitForFixedUpdate ();
+
+		} while (jumpState != JumpState.Grounded);
 	}
 }

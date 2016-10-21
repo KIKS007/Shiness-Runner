@@ -7,6 +7,11 @@ TagManager:
   - Poui
   - Enemy
   - ProjectilesSpawns
+  - Death
+  - Checkpoint
+  - SideScrolling
+  - SidePath
+  - TopPath
   layers:
   - Default
   - TransparentFX

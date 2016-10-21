@@ -22,19 +22,27 @@ public class CameraCheckDeath : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		Vector3 screenPos = cam.WorldToScreenPoint (player.position);
+		if(player == null && GameObject.FindGameObjectWithTag ("Player") != null)
+			player = GameObject.FindGameObjectWithTag ("Player").transform;
 
-		if(GameManager.Instance.gameState == GameState.Playing)
+
+		if(player != null)
 		{
-			if(GameManager.Instance.viewState == ViewState.Top && screenPos.x < topXDeathPosition)
+			Vector3 screenPos = cam.WorldToScreenPoint (player.position);
+			
+			if(GameManager.Instance.gameState == GameState.Playing)
 			{
-				GameManager.Instance.GameOver ();
+				if(GameManager.Instance.viewState == ViewState.Top && screenPos.x < topXDeathPosition)
+				{
+					GameManager.Instance.Death ();
+				}
+				
+				if(GameManager.Instance.viewState == ViewState.Side && screenPos.x < sideXDeathPosition)
+				{
+					GameManager.Instance.Death ();
+				}
 			}
-
-			if(GameManager.Instance.viewState == ViewState.Side && screenPos.x < sideXDeathPosition)
-			{
-				GameManager.Instance.GameOver ();
-			}
+			
 		}
 	}
 }
