@@ -1,0 +1,241 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Rock
+  m_Shader: {fileID: 4800000, guid: 7497b32b4ed60be418b66da28bc0db90, type: 3}
+  m_ShaderKeywords: _EMISSION _USEMOSS_ON _USE_SHADOWOTHER_ON _USE_SHADOWSELF_ON
+  m_LightmapFlags: 1
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _Albedo
+      second:
+        m_Texture: {fileID: 2800000, guid: 8e7919b0702dc8a4e9bc3a71af671abd, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailAlbedoMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailMask
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailNormalMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Diffuse
+      second:
+        m_Texture: {fileID: 2800000, guid: b66bceaf0cc0ace4e9bdc92f14bba709, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _EmissionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MetallicGlossMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Moss
+      second:
+        m_Texture: {fileID: 2800000, guid: 7edabaa94ddfa174bb6910fb330b2f8a, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Normal
+      second:
+        m_Texture: {fileID: 2800000, guid: b58efa39a33fb2542afb7a81997f8477, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _OcclusionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Transition
+      second:
+        m_Texture: {fileID: 2800000, guid: 28c7aad1372ff114b90d330f8a2dd938, type: 3}
+        m_Scale: {x: 0.15, y: 0.15}
+        m_Offset: {x: 0, y: 0.3}
+    - first:
+        name: _node_1667
+      second:
+        m_Texture: {fileID: 2800000, guid: 28c7aad1372ff114b90d330f8a2dd938, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _node_589
+      second:
+        m_Texture: {fileID: 2800000, guid: 070c9e2c12b5e8b46a006fddd407037b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _BumpScale
+      second: 1
+    - first:
+        name: _Cutoff
+      second: 0.5
+    - first:
+        name: _DetailNormalMapScale
+      second: 1
+    - first:
+        name: _DstBlend
+      second: 0
+    - first:
+        name: _Dynamic_Outline
+      second: 0
+    - first:
+        name: _Gloss
+      second: 0.21
+    - first:
+        name: _GlossMapScale
+      second: 1
+    - first:
+        name: _Glossiness
+      second: 0.5
+    - first:
+        name: _GlossyReflections
+      second: 1
+    - first:
+        name: _Height
+      second: 0.04
+    - first:
+        name: _Light_intensity
+      second: 0.4
+    - first:
+        name: _Metallic
+      second: 0
+    - first:
+        name: _Mode
+      second: 0
+    - first:
+        name: _Moss_offset
+      second: 0.19
+    - first:
+        name: _Moss_transition
+      second: 0.3
+    - first:
+        name: _OcclusionStrength
+      second: 1
+    - first:
+        name: _Outline
+      second: 0.001389
+    - first:
+        name: _Outline_dynamic
+      second: 0
+    - first:
+        name: _Outline_standard
+      second: 0
+    - first:
+        name: _Outline_width
+      second: 0.2
+    - first:
+        name: _Parallax
+      second: 0.02
+    - first:
+        name: _Shadow_intensity
+      second: 0.5
+    - first:
+        name: _SmoothnessTextureChannel
+      second: 0
+    - first:
+        name: _SpecularHighlights
+      second: 1
+    - first:
+        name: _SrcBlend
+      second: 1
+    - first:
+        name: _UVSec
+      second: 0
+    - first:
+        name: _Use_Shadowother
+      second: 1
+    - first:
+        name: _Use_Shadowself
+      second: 1
+    - first:
+        name: _Use_light
+      second: 0
+    - first:
+        name: _Usemoss
+      second: 1
+    - first:
+        name: _ZWrite
+      second: 1
+    - first:
+        name: _node_1897
+      second: 8.3
+    - first:
+        name: _node_2032
+      second: 1
+    - first:
+        name: _node_3283
+      second: 0
+    - first:
+        name: _node_5994
+      second: 0
+    - first:
+        name: _node_8389
+      second: -9.34
+    - first:
+        name: _node_9650
+      second: 0
+    - first:
+        name: _node_9704
+      second: 0.02
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 0.97794116, g: 0.97794116, b: 0.97794116, a: 1}
+    - first:
+        name: _EmissionColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _Moss
+      second: {r: 0.5340651, g: 0.7058823, b: 0.20761243, a: 1}
+    - first:
+        name: _Specular
+      second: {r: 0.39705884, g: 0.39705884, b: 0.39705884, a: 1}

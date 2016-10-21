@@ -190,12 +190,12 @@ MonoBehaviour:
     type: 2}
   randomPosition: 0
   randomValueAdded: 1
-  projectileTest: 1
+  projectileTest: 0
   spawnIntervalle: 2
   spawnIntervalleRandom: 0.2
   idList: 
   spawns: []
-  spawnEnable: 1
+  spawnEnable: 0
 --- !u!4 &453433625
 Transform:
   m_ObjectHideFlags: 0
@@ -708,6 +708,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011337851986, guid: e28f548722d84bb40b1a6b5ad0e5b94e, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013433208916, guid: e28f548722d84bb40b1a6b5ad0e5b94e, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
