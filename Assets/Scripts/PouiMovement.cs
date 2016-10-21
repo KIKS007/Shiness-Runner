@@ -42,6 +42,8 @@ public class PouiMovement : MonoBehaviour
 
 		GameManager.Instance.OnTopView += ()=> StartCoroutine (PouiToTopPosition ());
 		GameManager.Instance.OnSideView += ()=> StartCoroutine (PouiToSidePosition ());
+
+		//StartCoroutine (LookAt ());
 	}
 	
 	// Update is called once per frame
@@ -59,6 +61,19 @@ public class PouiMovement : MonoBehaviour
 				MovementSide ();
 			}
 		}
+
+
+	}
+
+	IEnumerator LookAt ()
+	{
+		Vector3 oldPosition = transform.position;
+
+		yield return new WaitForSeconds (0.01f);
+
+		transform.LookAt (transform.position - oldPosition);
+
+		StartCoroutine (LookAt ());
 	}
 
 	public IEnumerator PouiToTopPosition ()
@@ -124,6 +139,7 @@ public class PouiMovement : MonoBehaviour
 		Vector3 target = Vector3.Lerp (transform.position, newPos, topLerp);
 
 		rigidBody.MovePosition (target);
+
 	}
 
 	Vector3 TopCheckLimits (Vector3 mousePos)
@@ -156,6 +172,7 @@ public class PouiMovement : MonoBehaviour
 		Vector3 target = Vector3.Lerp (transform.position, newPos, sideLerp);
 
 		rigidBody.MovePosition (target);
+
 	}
 
 	Vector3 CheckIfCanMove (Vector3 newPos)

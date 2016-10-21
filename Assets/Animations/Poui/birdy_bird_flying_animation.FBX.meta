@@ -1,0 +1,397 @@
+fileFormatVersion: 2
+guid: ccbed7988d4b8c345b4f00a4678a7d87
+timeCreated: 1477058605
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BabyPoui_Crest_01_RIG
+    100002: BabyPoui_Crest_02_RIG
+    100004: BabyPoui_Crest_A_01_RIG
+    100006: BabyPoui_Crest_A_02_RIG
+    100008: BabyPoui_Crest_B_01_RIG
+    100010: BabyPoui_Crest_B_02_RIG
+    100012: BabyPoui_Crest_C_01_RIG
+    100014: BabyPoui_Crest_C_02_RIG
+    100016: BabyPoui_Crest_MDL
+    100018: BabyPoui_Hair_A_CTRL
+    100020: BabyPoui_Hair_B_CTRL
+    100022: BabyPoui_Hair_C_CTRL
+    100024: BabyPoui_Hair_CTRL
+    100026: BabyPoui_Hip_CTRL
+    100028: BabyPoui_L_Ankle_Pivot_RIG
+    100030: BabyPoui_L_Bank_L_Pivot_RIG
+    100032: BabyPoui_L_Bank_R_Pivot_RIG
+    100034: BabyPoui_L_Foot_IK_Child_RIG
+    100036: BabyPoui_L_Foot_IK_RIG
+    100038: BabyPoui_L_Foot_IkChain_RIG
+    100040: BabyPoui_L_Foot_Pivot_RIG
+    100042: BabyPoui_L_FootRoll_CTRL
+    100044: BabyPoui_L_FootRoll_PArent_RIG
+    100046: BabyPoui_L_Heel_Pivot_RIG
+    100048: BabyPoui_L_Leg_CTRL
+    100050: BabyPoui_L_Leg_IkChain_RIG
+    100052: BabyPoui_L_LegWrapper_RIG
+    100054: BabyPoui_L_LowerLeg_IK_Child_RIG
+    100056: BabyPoui_L_LowerLeg_IK_RIG
+    100058: BabyPoui_L_Upnode_IK_Leg_CTRL
+    100060: BabyPoui_L_UpperLeg_IK_RIG
+    100062: BabyPoui_L_Wings_01_RIG
+    100064: BabyPoui_L_Wings_02_RIG
+    100066: BabyPoui_L_Wings_CTRL
+    100068: BabyPoui_MDL
+    100070: BabyPoui_Pelvis_01_RIG
+    100072: BabyPoui_Pelvis_02_RIG
+    100074: BabyPoui_Pelvis_CTRL
+    100076: BabyPoui_R_Ankle_Pivot_RIG
+    100078: BabyPoui_R_Bank_L_Pivot_RIG
+    100080: BabyPoui_R_Bank_R_Pivot_RIG
+    100082: BabyPoui_R_Foot_IK_Child_RIG
+    100084: BabyPoui_R_Foot_IK_RIG
+    100086: BabyPoui_R_Foot_IkChain_RIG
+    100088: BabyPoui_R_Foot_Pivot_RIG
+    100090: BabyPoui_R_FootRoll_CTRL
+    100092: BabyPoui_R_FootRoll_PArent_RIG
+    100094: BabyPoui_R_Heel_Pivot_RIG
+    100096: BabyPoui_R_Leg_CTRL
+    100098: BabyPoui_R_Leg_IkChain_RIG
+    100100: BabyPoui_R_LegWrapper_RIG
+    100102: BabyPoui_R_LowerLeg_IK_Child_RIG
+    100104: BabyPoui_R_LowerLeg_IK_RIG
+    100106: BabyPoui_R_Upnode_IK_Leg_CTRL
+    100108: BabyPoui_R_UpperLeg_IK_RIG
+    100110: BabyPoui_R_Wings_01_RIG
+    100112: BabyPoui_R_Wings_02_RIG
+    100114: BabyPoui_R_Wings_CTRL
+    100116: BabyPoui_Root_CTRL
+    100118: BabyPoui_Spine_01_RIG
+    100120: BabyPoui_Spine_02_RIG
+    100122: BabyPoui_Spine_CTRL
+    100124: BabyPoui_Tail_01_RIG
+    100126: BabyPoui_Tail_02_RIG
+    100128: BabyPoui_Tail_CTRL
+    100130: BabyPoui_World_CTRL
+    100132: //RootNode
+    400000: BabyPoui_Crest_01_RIG
+    400002: BabyPoui_Crest_02_RIG
+    400004: BabyPoui_Crest_A_01_RIG
+    400006: BabyPoui_Crest_A_02_RIG
+    400008: BabyPoui_Crest_B_01_RIG
+    400010: BabyPoui_Crest_B_02_RIG
+    400012: BabyPoui_Crest_C_01_RIG
+    400014: BabyPoui_Crest_C_02_RIG
+    400016: BabyPoui_Crest_MDL
+    400018: BabyPoui_Hair_A_CTRL
+    400020: BabyPoui_Hair_B_CTRL
+    400022: BabyPoui_Hair_C_CTRL
+    400024: BabyPoui_Hair_CTRL
+    400026: BabyPoui_Hip_CTRL
+    400028: BabyPoui_L_Ankle_Pivot_RIG
+    400030: BabyPoui_L_Bank_L_Pivot_RIG
+    400032: BabyPoui_L_Bank_R_Pivot_RIG
+    400034: BabyPoui_L_Foot_IK_Child_RIG
+    400036: BabyPoui_L_Foot_IK_RIG
+    400038: BabyPoui_L_Foot_IkChain_RIG
+    400040: BabyPoui_L_Foot_Pivot_RIG
+    400042: BabyPoui_L_FootRoll_CTRL
+    400044: BabyPoui_L_FootRoll_PArent_RIG
+    400046: BabyPoui_L_Heel_Pivot_RIG
+    400048: BabyPoui_L_Leg_CTRL
+    400050: BabyPoui_L_Leg_IkChain_RIG
+    400052: BabyPoui_L_LegWrapper_RIG
+    400054: BabyPoui_L_LowerLeg_IK_Child_RIG
+    400056: BabyPoui_L_LowerLeg_IK_RIG
+    400058: BabyPoui_L_Upnode_IK_Leg_CTRL
+    400060: BabyPoui_L_UpperLeg_IK_RIG
+    400062: BabyPoui_L_Wings_01_RIG
+    400064: BabyPoui_L_Wings_02_RIG
+    400066: BabyPoui_L_Wings_CTRL
+    400068: BabyPoui_MDL
+    400070: BabyPoui_Pelvis_01_RIG
+    400072: BabyPoui_Pelvis_02_RIG
+    400074: BabyPoui_Pelvis_CTRL
+    400076: BabyPoui_R_Ankle_Pivot_RIG
+    400078: BabyPoui_R_Bank_L_Pivot_RIG
+    400080: BabyPoui_R_Bank_R_Pivot_RIG
+    400082: BabyPoui_R_Foot_IK_Child_RIG
+    400084: BabyPoui_R_Foot_IK_RIG
+    400086: BabyPoui_R_Foot_IkChain_RIG
+    400088: BabyPoui_R_Foot_Pivot_RIG
+    400090: BabyPoui_R_FootRoll_CTRL
+    400092: BabyPoui_R_FootRoll_PArent_RIG
+    400094: BabyPoui_R_Heel_Pivot_RIG
+    400096: BabyPoui_R_Leg_CTRL
+    400098: BabyPoui_R_Leg_IkChain_RIG
+    400100: BabyPoui_R_LegWrapper_RIG
+    400102: BabyPoui_R_LowerLeg_IK_Child_RIG
+    400104: BabyPoui_R_LowerLeg_IK_RIG
+    400106: BabyPoui_R_Upnode_IK_Leg_CTRL
+    400108: BabyPoui_R_UpperLeg_IK_RIG
+    400110: BabyPoui_R_Wings_01_RIG
+    400112: BabyPoui_R_Wings_02_RIG
+    400114: BabyPoui_R_Wings_CTRL
+    400116: BabyPoui_Root_CTRL
+    400118: BabyPoui_Spine_01_RIG
+    400120: BabyPoui_Spine_02_RIG
+    400122: BabyPoui_Spine_CTRL
+    400124: BabyPoui_Tail_01_RIG
+    400126: BabyPoui_Tail_02_RIG
+    400128: BabyPoui_Tail_CTRL
+    400130: BabyPoui_World_CTRL
+    400132: //RootNode
+    2300000: BabyPoui_Hair_A_CTRL
+    2300002: BabyPoui_Hair_B_CTRL
+    2300004: BabyPoui_Hair_C_CTRL
+    2300006: BabyPoui_Hair_CTRL
+    2300008: BabyPoui_L_Wings_CTRL
+    2300010: BabyPoui_R_Wings_CTRL
+    2300012: BabyPoui_Spine_CTRL
+    2300014: BabyPoui_Tail_CTRL
+    3300000: BabyPoui_Hair_A_CTRL
+    3300002: BabyPoui_Hair_B_CTRL
+    3300004: BabyPoui_Hair_C_CTRL
+    3300006: BabyPoui_Hair_CTRL
+    3300008: BabyPoui_L_Wings_CTRL
+    3300010: BabyPoui_R_Wings_CTRL
+    3300012: BabyPoui_Spine_CTRL
+    3300014: BabyPoui_Tail_CTRL
+    4300000: BabyPoui_Crest_MDL
+    4300002: BabyPoui_MDL
+    4300004: BabyPoui_Tail_CTRL
+    4300006: BabyPoui_Spine_CTRL
+    4300008: BabyPoui_Hair_CTRL
+    4300010: BabyPoui_Hair_C_CTRL
+    4300012: BabyPoui_Hair_B_CTRL
+    4300014: BabyPoui_Hair_A_CTRL
+    4300016: BabyPoui_R_Wings_CTRL
+    4300018: BabyPoui_L_Wings_CTRL
+    7400000: Fly
+    9500000: //RootNode
+    13700000: BabyPoui_Crest_MDL
+    13700002: BabyPoui_MDL
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Fly
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 7
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BabyPoui_Crest_MDL
+        weight: 1
+      - path: BabyPoui_MDL
+        weight: 1
+      - path: BabyPoui_World_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_FootRoll_PArent_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_FootRoll_PArent_RIG/BabyPoui_L_FootRoll_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_Heel_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_Heel_Pivot_RIG/BabyPoui_L_Bank_R_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_Heel_Pivot_RIG/BabyPoui_L_Bank_R_Pivot_RIG/BabyPoui_L_Bank_L_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_Heel_Pivot_RIG/BabyPoui_L_Bank_R_Pivot_RIG/BabyPoui_L_Bank_L_Pivot_RIG/BabyPoui_L_Foot_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_Heel_Pivot_RIG/BabyPoui_L_Bank_R_Pivot_RIG/BabyPoui_L_Bank_L_Pivot_RIG/BabyPoui_L_Foot_Pivot_RIG/BabyPoui_L_Ankle_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_Heel_Pivot_RIG/BabyPoui_L_Bank_R_Pivot_RIG/BabyPoui_L_Bank_L_Pivot_RIG/BabyPoui_L_Foot_Pivot_RIG/BabyPoui_L_Ankle_Pivot_RIG/BabyPoui_L_Leg_IkChain_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_L_Leg_CTRL/BabyPoui_L_Heel_Pivot_RIG/BabyPoui_L_Bank_R_Pivot_RIG/BabyPoui_L_Bank_L_Pivot_RIG/BabyPoui_L_Foot_Pivot_RIG/BabyPoui_L_Foot_IkChain_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_FootRoll_PArent_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_FootRoll_PArent_RIG/BabyPoui_R_FootRoll_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_Heel_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_Heel_Pivot_RIG/BabyPoui_R_Bank_R_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_Heel_Pivot_RIG/BabyPoui_R_Bank_R_Pivot_RIG/BabyPoui_R_Bank_L_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_Heel_Pivot_RIG/BabyPoui_R_Bank_R_Pivot_RIG/BabyPoui_R_Bank_L_Pivot_RIG/BabyPoui_R_Foot_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_Heel_Pivot_RIG/BabyPoui_R_Bank_R_Pivot_RIG/BabyPoui_R_Bank_L_Pivot_RIG/BabyPoui_R_Foot_Pivot_RIG/BabyPoui_R_Ankle_Pivot_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_Heel_Pivot_RIG/BabyPoui_R_Bank_R_Pivot_RIG/BabyPoui_R_Bank_L_Pivot_RIG/BabyPoui_R_Foot_Pivot_RIG/BabyPoui_R_Ankle_Pivot_RIG/BabyPoui_R_Leg_IkChain_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_R_Leg_CTRL/BabyPoui_R_Heel_Pivot_RIG/BabyPoui_R_Bank_R_Pivot_RIG/BabyPoui_R_Bank_L_Pivot_RIG/BabyPoui_R_Foot_Pivot_RIG/BabyPoui_R_Foot_IkChain_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_L_LegWrapper_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_L_LegWrapper_RIG/BabyPoui_L_UpperLeg_IK_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_L_LegWrapper_RIG/BabyPoui_L_UpperLeg_IK_RIG/BabyPoui_L_LowerLeg_IK_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_L_LegWrapper_RIG/BabyPoui_L_UpperLeg_IK_RIG/BabyPoui_L_LowerLeg_IK_RIG/BabyPoui_L_LowerLeg_IK_Child_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_L_LegWrapper_RIG/BabyPoui_L_UpperLeg_IK_RIG/BabyPoui_L_LowerLeg_IK_RIG/BabyPoui_L_LowerLeg_IK_Child_RIG/BabyPoui_L_Foot_IK_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_L_LegWrapper_RIG/BabyPoui_L_UpperLeg_IK_RIG/BabyPoui_L_LowerLeg_IK_RIG/BabyPoui_L_LowerLeg_IK_Child_RIG/BabyPoui_L_Foot_IK_RIG/BabyPoui_L_Foot_IK_Child_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_Pelvis_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_R_LegWrapper_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_R_LegWrapper_RIG/BabyPoui_R_UpperLeg_IK_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_R_LegWrapper_RIG/BabyPoui_R_UpperLeg_IK_RIG/BabyPoui_R_LowerLeg_IK_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_R_LegWrapper_RIG/BabyPoui_R_UpperLeg_IK_RIG/BabyPoui_R_LowerLeg_IK_RIG/BabyPoui_R_LowerLeg_IK_Child_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_R_LegWrapper_RIG/BabyPoui_R_UpperLeg_IK_RIG/BabyPoui_R_LowerLeg_IK_RIG/BabyPoui_R_LowerLeg_IK_Child_RIG/BabyPoui_R_Foot_IK_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_R_LegWrapper_RIG/BabyPoui_R_UpperLeg_IK_RIG/BabyPoui_R_LowerLeg_IK_RIG/BabyPoui_R_LowerLeg_IK_Child_RIG/BabyPoui_R_Foot_IK_RIG/BabyPoui_R_Foot_IK_Child_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_Tail_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_01_RIG/BabyPoui_Tail_01_RIG/BabyPoui_Tail_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Pelvis_CTRL/BabyPoui_Tail_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_L_Wings_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_L_Wings_01_RIG/BabyPoui_L_Wings_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_R_Wings_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_R_Wings_01_RIG/BabyPoui_R_Wings_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG/BabyPoui_Crest_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG/BabyPoui_Crest_01_RIG/BabyPoui_Crest_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG/BabyPoui_Crest_01_RIG/BabyPoui_Crest_A_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG/BabyPoui_Crest_01_RIG/BabyPoui_Crest_A_01_RIG/BabyPoui_Crest_A_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG/BabyPoui_Crest_01_RIG/BabyPoui_Crest_B_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG/BabyPoui_Crest_01_RIG/BabyPoui_Crest_B_01_RIG/BabyPoui_Crest_B_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG/BabyPoui_Crest_01_RIG/BabyPoui_Crest_C_01_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_01_RIG/BabyPoui_Spine_02_RIG/BabyPoui_Crest_01_RIG/BabyPoui_Crest_C_01_RIG/BabyPoui_Crest_C_02_RIG
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_CTRL/BabyPoui_Hair_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_CTRL/BabyPoui_Hair_CTRL/BabyPoui_Hair_A_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_CTRL/BabyPoui_Hair_CTRL/BabyPoui_Hair_B_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_CTRL/BabyPoui_Hair_CTRL/BabyPoui_Hair_C_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_CTRL/BabyPoui_L_Wings_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_Hip_CTRL/BabyPoui_Spine_CTRL/BabyPoui_R_Wings_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_L_Upnode_IK_Leg_CTRL
+        weight: 1
+      - path: BabyPoui_World_CTRL/BabyPoui_Root_CTRL/BabyPoui_R_Upnode_IK_Leg_CTRL
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
