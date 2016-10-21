@@ -1,0 +1,459 @@
+fileFormatVersion: 2
+guid: 3b10116656ccf29468e5440549c1b5a9
+timeCreated: 1477057177
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: bone_corps
+    100002: bone_cuirasse
+    100004: bone_mandibuleD
+    100006: bone_mandibuleD001
+    100008: bone_patteArrD
+    100010: bone_patteArrG
+    100012: bone_patteAvnD
+    100014: bone_patteAvnG
+    100016: bone_patteMilD
+    100018: bone_patteMilG
+    100020: bone_piedArrG
+    100022: bone_piedAvnD
+    100024: bone_piedAvnD 1
+    100026: bone_piedAvnG
+    100028: bone_piedMilD
+    100030: bone_piedMilG
+    100032: bone_tete
+    100034: Dummy001
+    100036: "ennemi_scarab\xE9"
+    100038: //RootNode
+    400000: bone_corps
+    400002: bone_cuirasse
+    400004: bone_mandibuleD
+    400006: bone_mandibuleD001
+    400008: bone_patteArrD
+    400010: bone_patteArrG
+    400012: bone_patteAvnD
+    400014: bone_patteAvnG
+    400016: bone_patteMilD
+    400018: bone_patteMilG
+    400020: bone_piedArrG
+    400022: bone_piedAvnD
+    400024: bone_piedAvnD 1
+    400026: bone_piedAvnG
+    400028: bone_piedMilD
+    400030: bone_piedMilG
+    400032: bone_tete
+    400034: Dummy001
+    400036: "ennemi_scarab\xE9"
+    400038: //RootNode
+    4300000: "ennemi_scarab\xE9"
+    7400000: Walk
+    7400002: Idle_Neutral
+    7400004: Idle_Threat
+    7400006: Idle_PissedOff
+    7400008: Attack
+    9500000: //RootNode
+    13700000: "ennemi_scarab\xE9"
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone_corps
+        weight: 1
+      - path: bone_corps/bone_cuirasse
+        weight: 1
+      - path: bone_corps/bone_patteArrD
+        weight: 1
+      - path: bone_corps/bone_patteArrD/bone_piedAvnD
+        weight: 1
+      - path: bone_corps/bone_patteArrG
+        weight: 1
+      - path: bone_corps/bone_patteArrG/bone_piedArrG
+        weight: 1
+      - path: bone_corps/bone_patteAvnD
+        weight: 1
+      - path: bone_corps/bone_patteAvnD/bone_piedAvnD 1
+        weight: 1
+      - path: bone_corps/bone_patteAvnG
+        weight: 1
+      - path: bone_corps/bone_patteAvnG/bone_piedAvnG
+        weight: 1
+      - path: bone_corps/bone_patteMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilD/bone_piedMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilG
+        weight: 1
+      - path: bone_corps/bone_patteMilG/bone_piedMilG
+        weight: 1
+      - path: bone_corps/bone_tete
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD001
+        weight: 1
+      - path: Dummy001
+        weight: 1
+      - path: "Dummy001/ennemi_scarab\xE9"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle_Neutral
+      takeName: Take 001
+      firstFrame: 62
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone_corps
+        weight: 1
+      - path: bone_corps/bone_cuirasse
+        weight: 1
+      - path: bone_corps/bone_patteArrD
+        weight: 1
+      - path: bone_corps/bone_patteArrD/bone_piedAvnD
+        weight: 1
+      - path: bone_corps/bone_patteArrG
+        weight: 1
+      - path: bone_corps/bone_patteArrG/bone_piedArrG
+        weight: 1
+      - path: bone_corps/bone_patteAvnD
+        weight: 1
+      - path: bone_corps/bone_patteAvnD/bone_piedAvnD 1
+        weight: 1
+      - path: bone_corps/bone_patteAvnG
+        weight: 1
+      - path: bone_corps/bone_patteAvnG/bone_piedAvnG
+        weight: 1
+      - path: bone_corps/bone_patteMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilD/bone_piedMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilG
+        weight: 1
+      - path: bone_corps/bone_patteMilG/bone_piedMilG
+        weight: 1
+      - path: bone_corps/bone_tete
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD001
+        weight: 1
+      - path: Dummy001
+        weight: 1
+      - path: "Dummy001/ennemi_scarab\xE9"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle_Threat
+      takeName: Take 001
+      firstFrame: 26
+      lastFrame: 61
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone_corps
+        weight: 1
+      - path: bone_corps/bone_cuirasse
+        weight: 1
+      - path: bone_corps/bone_patteArrD
+        weight: 1
+      - path: bone_corps/bone_patteArrD/bone_piedAvnD
+        weight: 1
+      - path: bone_corps/bone_patteArrG
+        weight: 1
+      - path: bone_corps/bone_patteArrG/bone_piedArrG
+        weight: 1
+      - path: bone_corps/bone_patteAvnD
+        weight: 1
+      - path: bone_corps/bone_patteAvnD/bone_piedAvnD 1
+        weight: 1
+      - path: bone_corps/bone_patteAvnG
+        weight: 1
+      - path: bone_corps/bone_patteAvnG/bone_piedAvnG
+        weight: 1
+      - path: bone_corps/bone_patteMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilD/bone_piedMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilG
+        weight: 1
+      - path: bone_corps/bone_patteMilG/bone_piedMilG
+        weight: 1
+      - path: bone_corps/bone_tete
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD001
+        weight: 1
+      - path: Dummy001
+        weight: 1
+      - path: "Dummy001/ennemi_scarab\xE9"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle_PissedOff
+      takeName: Take 001
+      firstFrame: 101
+      lastFrame: 141
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone_corps
+        weight: 1
+      - path: bone_corps/bone_cuirasse
+        weight: 1
+      - path: bone_corps/bone_patteArrD
+        weight: 1
+      - path: bone_corps/bone_patteArrD/bone_piedAvnD
+        weight: 1
+      - path: bone_corps/bone_patteArrG
+        weight: 1
+      - path: bone_corps/bone_patteArrG/bone_piedArrG
+        weight: 1
+      - path: bone_corps/bone_patteAvnD
+        weight: 1
+      - path: bone_corps/bone_patteAvnD/bone_piedAvnD 1
+        weight: 1
+      - path: bone_corps/bone_patteAvnG
+        weight: 1
+      - path: bone_corps/bone_patteAvnG/bone_piedAvnG
+        weight: 1
+      - path: bone_corps/bone_patteMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilD/bone_piedMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilG
+        weight: 1
+      - path: bone_corps/bone_patteMilG/bone_piedMilG
+        weight: 1
+      - path: bone_corps/bone_tete
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD001
+        weight: 1
+      - path: Dummy001
+        weight: 1
+      - path: "Dummy001/ennemi_scarab\xE9"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 142
+      lastFrame: 169
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone_corps
+        weight: 1
+      - path: bone_corps/bone_cuirasse
+        weight: 1
+      - path: bone_corps/bone_patteArrD
+        weight: 1
+      - path: bone_corps/bone_patteArrD/bone_piedAvnD
+        weight: 1
+      - path: bone_corps/bone_patteArrG
+        weight: 1
+      - path: bone_corps/bone_patteArrG/bone_piedArrG
+        weight: 1
+      - path: bone_corps/bone_patteAvnD
+        weight: 1
+      - path: bone_corps/bone_patteAvnD/bone_piedAvnD 1
+        weight: 1
+      - path: bone_corps/bone_patteAvnG
+        weight: 1
+      - path: bone_corps/bone_patteAvnG/bone_piedAvnG
+        weight: 1
+      - path: bone_corps/bone_patteMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilD/bone_piedMilD
+        weight: 1
+      - path: bone_corps/bone_patteMilG
+        weight: 1
+      - path: bone_corps/bone_patteMilG/bone_piedMilG
+        weight: 1
+      - path: bone_corps/bone_tete
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD
+        weight: 1
+      - path: bone_corps/bone_tete/bone_mandibuleD001
+        weight: 1
+      - path: Dummy001
+        weight: 1
+      - path: "Dummy001/ennemi_scarab\xE9"
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

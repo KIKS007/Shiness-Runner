@@ -15,6 +15,7 @@ TagManager:
   - SimpleCollectiblesParent
   - Projectile
   - PlayerAnimator
+  - EnemyAnimator
   layers:
   - Default
   - TransparentFX

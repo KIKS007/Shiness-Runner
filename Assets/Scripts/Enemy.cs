@@ -14,11 +14,32 @@ public class Enemy : MonoBehaviour
 
 	private bool isDelayed = false;
 
+	private Animator anim;
+
 	// Use this for initialization
 	void Start () 
 	{
+		for (int i = 0; i < transform.childCount; i++)
+			if (transform.GetChild (i).tag == "EnemyAnimator")
+				anim = transform.GetChild (i).GetComponent <Animator> ();
+
 		player = GameObject.FindGameObjectWithTag (("Player")).transform;
 		rigidBody = GetComponent <Rigidbody> ();
+
+		int random = Random.Range (0, 4);
+
+		switch(random)
+		{
+		case 0:
+			anim.SetTrigger ("Idle_Neutral");
+			break;
+		case 1:
+			anim.SetTrigger ("Idle_PissedOff");
+			break;
+		case 2:
+			anim.SetTrigger ("Idle_Threat");
+			break;
+		}
 	}
 	
 	// Update is called once per frame
@@ -33,6 +54,9 @@ public class Enemy : MonoBehaviour
 
 	void MoveTowardsPlayer ()
 	{
+		if(!anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+			anim.SetTrigger ("Walk");
+
 		Vector3 target = player.position;
 		target.y = transform.position.y;
 
@@ -43,6 +67,8 @@ public class Enemy : MonoBehaviour
 
 	void Attack ()
 	{
+		anim.SetTrigger ("Attack");
+
 		Vector3 direction = player.transform.position - transform.position;
 		direction.Normalize ();
 
@@ -61,6 +87,21 @@ public class Enemy : MonoBehaviour
 	IEnumerator PunchDelay ()
 	{
 		isDelayed = true;
+
+		int random = Random.Range (0, 4);
+
+		switch(random)
+		{
+		case 0:
+			anim.SetTrigger ("Idle_Neutral");
+			break;
+		case 1:
+			anim.SetTrigger ("Idle_PissedOff");
+			break;
+		case 2:
+			anim.SetTrigger ("Idle_Threat");
+			break;
+		}
 
 		yield return new WaitForSeconds ((delayAfterPunch));
 
