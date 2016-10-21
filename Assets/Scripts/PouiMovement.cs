@@ -104,12 +104,16 @@ public class PouiMovement : MonoBehaviour
 	void MovementTop ()
 	{
 		Vector3 rayCastDirection = Input.mousePosition;
-		rayCastDirection.z -= mainCamera.transform.position.z;
+		rayCastDirection.z -= mainCamera.transform.position.z - mainCamera.transform.parent.transform.position.z;
 
 		rayCastDirection = mainCamera.ScreenToWorldPoint (rayCastDirection);
-			
+
 		RaycastHit hit = new RaycastHit();
 		Physics.Raycast (mainCamera.transform.position, rayCastDirection - mainCamera.transform.position, out hit, Mathf.Infinity, floorLayer, QueryTriggerInteraction.Collide);
+
+		//Debug.DrawRay (mainCamera.transform.position, rayCastDirection - mainCamera.transform.position, Color.red);
+
+		//Debug.Log (hit.collider);
 
 		Vector3 newPos = hit.point;
 

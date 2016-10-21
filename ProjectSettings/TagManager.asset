@@ -12,6 +12,7 @@ TagManager:
   - SideScrolling
   - SidePath
   - TopPath
+  - SimpleCollectiblesParent
   layers:
   - Default
   - TransparentFX
