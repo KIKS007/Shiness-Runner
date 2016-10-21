@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerAnimations : MonoBehaviour 
 {
-	public Animator anim;
+	private Animator anim;
 
 	public float topRunningSpeed;
 	public float sideRunningSpeed;
@@ -13,6 +13,8 @@ public class PlayerAnimations : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		anim = GameObject.FindGameObjectWithTag ("PlayerAnimator").GetComponent <Animator> ();
+
 		playerScript = GetComponent <PlayerMovement> ();
 
 		playerScript.OnJumpStart += JumpStart;
@@ -57,7 +59,6 @@ public class PlayerAnimations : MonoBehaviour
 	void Death ()
 	{
 		anim.SetTrigger ("Death");
-
 	}
 
 	void TopSpeed ()

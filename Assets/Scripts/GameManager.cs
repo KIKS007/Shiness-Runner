@@ -199,6 +199,8 @@ public class GameManager :  Singleton<GameManager>
 
 	IEnumerator ToTopCoroutine ()
 	{
+		cameraSwitchScript.ToTop ();
+
 		float speed = playerMovementScript.topMovementSpeed;
 		float cameraSpeed = cameraFollowScript.topViewScrollSpeed;
 
@@ -210,7 +212,6 @@ public class GameManager :  Singleton<GameManager>
 		DOTween.To (()=> playerMovementScript.topMovementSpeed, x => playerMovementScript.topMovementSpeed = x, speed, speedSubstractionTweenDuration);
 		DOTween.To (()=> cameraFollowScript.topViewScrollSpeed, x => cameraFollowScript.topViewScrollSpeed = x, cameraSpeed, speedSubstractionTweenDuration);
 
-		cameraSwitchScript.ToTop ();
 	}
 
 	public void ToSide ()
@@ -220,6 +221,7 @@ public class GameManager :  Singleton<GameManager>
 
 	IEnumerator ToSideCoroutine ()
 	{
+		cameraSwitchScript.ToSide ();
 
 		float speed = playerMovementScript.sideMovementSpeed;
 		float cameraSpeed = cameraFollowScript.sideViewScrollSpeed;
@@ -232,15 +234,24 @@ public class GameManager :  Singleton<GameManager>
 		DOTween.To (()=> playerMovementScript.sideMovementSpeed, x => playerMovementScript.sideMovementSpeed = x, speed, speedSubstractionTweenDuration);
 		DOTween.To (()=> cameraFollowScript.sideViewScrollSpeed, x => cameraFollowScript.sideViewScrollSpeed = x, cameraSpeed, speedSubstractionTweenDuration);
 	
-		cameraSwitchScript.ToSide ();
 	}
 
 	public void Death ()
 	{
+		playerMovementScript = player.GetComponent <PlayerMovement> ();
+		playerMovementScript.DeathEvent ();
+
 		gameState = GameState.GameOver;
 		Debug.Log ("Gameover");
 
-		playerMovementScript.DeathEvent ();
+		StartCoroutine (DeathAnimation ());
+	}
+
+	IEnumerator DeathAnimation ()
+	{
+		mainCamera.transform.parent.DOMoveX (player.transform.position.x, 1f);
+
+		yield return new WaitForSeconds (3);
 
 		LoadPreviousCheckpoint ();
 	}
