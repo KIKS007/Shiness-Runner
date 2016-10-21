@@ -35,12 +35,15 @@ public class Projectile : MonoBehaviour
 
 	void GetToPlayer ()
 	{
-		Vector3 target = player.position;
-		target.z = transform.position.z;
-		target.y += 1.2f;
-
-		transform.LookAt (target);
-
+		if(player != null)
+		{
+			Vector3 target = player.position;
+			target.z = transform.position.z;
+			target.y += 1.2f;
+			
+			transform.LookAt (target);
+			
+		}
 
 		rigidBody.MovePosition (transform.position + transform.forward * speed * Time.fixedDeltaTime);
 	}

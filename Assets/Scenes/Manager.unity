@@ -191,10 +191,11 @@ MonoBehaviour:
   randomPosition: 0
   randomValueAdded: 1
   projectileTest: 0
-  spawnIntervalle: 2
+  spawnIntervalle: 0.5
   spawnIntervalleRandom: 0.2
   idList: 
   spawns: []
+  spawnEnable: 0
 --- !u!4 &453433625
 Transform:
   m_ObjectHideFlags: 0
@@ -654,6 +655,9 @@ MonoBehaviour:
   checkpointsList:
   - {fileID: 1001012573}
   delayBeforeResume: 1
+  speedSubstrated: 4
+  speedSubstractionWaitTime: 0.5
+  speedSubstractionTweenDuration: 2
 --- !u!4 &1517878519
 Transform:
   m_ObjectHideFlags: 0
@@ -838,7 +842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1826843991
 Transform:
   m_ObjectHideFlags: 0

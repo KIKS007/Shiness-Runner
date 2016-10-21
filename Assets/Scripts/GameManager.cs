@@ -37,10 +37,16 @@ public class GameManager :  Singleton<GameManager>
 	[Header ("Load Checkpoint")]
 	public float delayBeforeResume = 3;
 
+	[Header ("Transition")]
+	public float speedSubstrated = 2;
+	public float speedSubstractionWaitTime = 2;
+	public float speedSubstractionTweenDuration = 2;
+
 	private GameObject player;
 	private GameObject mainCamera;
 	private CameraSwitchView cameraSwitchScript;
 	private CameraFollow cameraFollowScript;
+	private PlayerMovement playerMovementScript;
 
 	// Use this for initialization
 	void Start () 
@@ -57,6 +63,7 @@ public class GameManager :  Singleton<GameManager>
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
 		cameraSwitchScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <CameraSwitchView>();
 		cameraFollowScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent <CameraFollow>();
+		playerMovementScript = player.GetComponent <PlayerMovement> ();
 	}
 
 	void ClearEvents ()
@@ -128,6 +135,9 @@ public class GameManager :  Singleton<GameManager>
 
 		Cursor.lockState = CursorLockMode.Confined;
 
+		ProjectilesSpawnManager.Instance.StopProjectileRandom ();
+		ProjectilesSpawnManager.Instance.DestroyProjectiles ();
+
 		for (int i = 0; i < simpleCollectibles.Count; i++)
 			simpleCollectibles [i].SetActive (false);
 
@@ -184,11 +194,45 @@ public class GameManager :  Singleton<GameManager>
 
 	public void ToTop ()
 	{
+		StartCoroutine (ToTopCoroutine ());
+	}
+
+	IEnumerator ToTopCoroutine ()
+	{
+
+		float speed = playerMovementScript.topMovementSpeed;
+		float cameraSpeed = cameraFollowScript.topViewScrollSpeed;
+
+		DOTween.To (()=> playerMovementScript.topMovementSpeed, x => playerMovementScript.topMovementSpeed = x, playerMovementScript.topMovementSpeed - speedSubstrated, speedSubstractionTweenDuration);
+		DOTween.To (()=> cameraFollowScript.topViewScrollSpeed, x => cameraFollowScript.topViewScrollSpeed = x, cameraFollowScript.topViewScrollSpeed - speedSubstrated, speedSubstractionTweenDuration);
+
+		yield return new WaitForSeconds (speedSubstractionWaitTime);
+
+		DOTween.To (()=> playerMovementScript.topMovementSpeed, x => playerMovementScript.topMovementSpeed = x, speed, speedSubstractionTweenDuration);
+		DOTween.To (()=> cameraFollowScript.topViewScrollSpeed, x => cameraFollowScript.topViewScrollSpeed = x, cameraSpeed, speedSubstractionTweenDuration);
+
 		cameraSwitchScript.ToTop ();
 	}
 
 	public void ToSide ()
 	{
+		StartCoroutine (ToSideCoroutine ());
+	}
+
+	IEnumerator ToSideCoroutine ()
+	{
+
+		float speed = playerMovementScript.sideMovementSpeed;
+		float cameraSpeed = cameraFollowScript.sideViewScrollSpeed;
+
+		DOTween.To (()=> playerMovementScript.sideMovementSpeed, x => playerMovementScript.sideMovementSpeed = x, playerMovementScript.sideMovementSpeed - speedSubstrated, speedSubstractionTweenDuration);
+		DOTween.To (()=> cameraFollowScript.sideViewScrollSpeed, x => cameraFollowScript.sideViewScrollSpeed = x, cameraFollowScript.sideViewScrollSpeed - speedSubstrated, speedSubstractionTweenDuration);
+
+		yield return new WaitForSeconds (speedSubstractionWaitTime);
+	
+		DOTween.To (()=> playerMovementScript.sideMovementSpeed, x => playerMovementScript.sideMovementSpeed = x, speed, speedSubstractionTweenDuration);
+		DOTween.To (()=> cameraFollowScript.sideViewScrollSpeed, x => cameraFollowScript.sideViewScrollSpeed = x, cameraSpeed, speedSubstractionTweenDuration);
+	
 		cameraSwitchScript.ToSide ();
 	}
 
