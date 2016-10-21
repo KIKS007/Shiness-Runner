@@ -108,7 +108,12 @@ public class CameraFollow : MonoBehaviour
 		if(!cameraSwitchScript.isMovingAlongPath)
 		{
 			if (GameManager.Instance.viewState == ViewState.Top)
-				sideScrollingParent.DOLocalMoveZ (player.transform.position.z, followZTweenDuration).SetLoops (-1).SetId ("SideScrollZ");
+			{
+				if(DOTween.IsTweening ("SideScrollZ"))
+					DOTween.Kill ("SideScrollZ");
+				
+				sideScrollingParent.DOLocalMoveZ (player.transform.position.z, followZTweenDuration).SetLoops (-1).SetId ("SideScrollZ").OnComplete (()=> DOTween.Kill (""));
+			}
 
 		}		
 

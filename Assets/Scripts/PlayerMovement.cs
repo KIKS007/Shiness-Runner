@@ -138,7 +138,12 @@ public class PlayerMovement : MonoBehaviour
 		rigidBody.MovePosition (transform.position + new Vector3(speed * Time.fixedDeltaTime, 0, 0));
 
 		if (transform.position.z != 0)
-			transform.DOLocalMoveZ (0, 1);
+		{
+			if(DOTween.IsTweening ("LocalMoveZ"))
+				DOTween.Kill ("LocalMoveZ");
+			
+			transform.DOLocalMoveZ (0, 1).SetId ("LocalMoveZ");
+		}
 	}
 
 	void GetCommonInput ()
