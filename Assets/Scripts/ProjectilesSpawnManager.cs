@@ -20,6 +20,8 @@ public class ProjectilesSpawnManager : Singleton<ProjectilesSpawnManager>
 	[HideInInspector]
 	public ProjectileSpawn[] spawns = new ProjectileSpawn[0];
 
+	public bool spawnEnable = false;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -43,14 +45,37 @@ public class ProjectilesSpawnManager : Singleton<ProjectilesSpawnManager>
 		}
 	}
 
+	public void StartProjectileRandom ()
+	{
+		spawnEnable = true;
+		StartCoroutine (SpawnProjectilesTest ());
+	}
+
+	public void StopProjectileRandom ()
+	{
+		spawnEnable = false;
+		StopCoroutine (SpawnProjectilesTest ());
+	}
+
 	IEnumerator SpawnProjectilesTest ()
 	{
-		int randomSpawnId = idList[Random.Range (0, idList.Count)];
-		SpawnProjectile (randomSpawnId);
+		if(spawnEnable)
+		{
+			int randomSpawnId = idList[Random.Range (0, idList.Count)];
+			SpawnProjectile (randomSpawnId);
+			
+			yield return new WaitForSeconds (Random.Range (spawnIntervalle - spawnIntervalleRandom, spawnIntervalle + spawnIntervalleRandom));
+			
+			StartCoroutine (SpawnProjectilesTest ());			
+		}
+	}
 
-		yield return new WaitForSeconds (Random.Range (spawnIntervalle - spawnIntervalleRandom, spawnIntervalle + spawnIntervalleRandom));
+	public void DestroyProjectiles ()
+	{
+		GameObject[] projectile = GameObject.FindGameObjectsWithTag ("Projectile");
 
-		StartCoroutine (SpawnProjectilesTest ());
+		for (int i = 0; i < projectile.Length; i++)
+			Destroy (projectile [i]);
 	}
 	
 	public void SpawnProjectile (int id)
